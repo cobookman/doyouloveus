@@ -23,9 +23,11 @@
     "hapi": "^8.4.0",
     "hapi-auth-cookie": "^2.0.0",
     "hoek": "^2.11.1",
+    "jade": "^1.9.2",
     "knex": "^0.7.6",
     "lodash": "^3.5.0",
     "mysql": "^2.5.5",
-    "promise": "^6.1.0"
+    "promise": "^6.1.0",
+    "twitter": "^1.2.4"
   }
 }

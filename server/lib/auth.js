@@ -11,7 +11,6 @@ exports.resolved = function(server, next) {
     return next();
 };
 
-
 exports.registerSessionAuth = function(server) {
     server.auth.strategy('session', 'cookie', {
         password: 'my secret password :D',
