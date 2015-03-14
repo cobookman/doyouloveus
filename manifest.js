@@ -26,7 +26,7 @@ var manifest = {
         'hapi-auth-cookie': {},
         'bell': {},
         './server/lib/auth': {},
-
+    
         './server/twitter/login': { basePath: '/twitter' },
         './server/twitter/logout': { basePath: '/twitter' },
         './server/home': { basePath: '' }

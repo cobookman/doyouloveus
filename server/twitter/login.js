@@ -1,4 +1,5 @@
 var Hoek = require('hoek');
+var knex = require('../lib/knex');
 
 exports.register = function (server, options, next) {
     server.dependency(["lib/auth"], exports.resolved.bind(exports, options));
@@ -21,10 +22,8 @@ exports.resolved = function(options, server, next) {
                 }
 
                 if(request.auth.isAuthenticated) {
-                    console.log("hi", {twitter: {
-                        token: request.auth.credentials.token,
-                        secret: request.auth.credentials.secret
-                    }});
+                    console.log("hi", request.auth.credentials);
+
                     request.auth.session.set({
                         twitter: {
                             token: request.auth.credentials.token,

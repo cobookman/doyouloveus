@@ -7,6 +7,7 @@ exports.register = function (server, options, next) {
 exports.resolved = function(server, next) {
     exports.registerSessionAuth(server);
     exports.registerTwitterAuth(server);
+
     return next();
 };
 
