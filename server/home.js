@@ -15,7 +15,7 @@ exports.register = function (server, options, next) {
 };
 
 exports.handler = function (request, reply) {
-    reply("logged into the webapp as:\n" + JSON.stringify(request.auth.credentials.profile));
+    reply("logged into the webapp as:\n" + JSON.stringify(request.auth));
 };
 
 exports.register.attributes = {
