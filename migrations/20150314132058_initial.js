@@ -1,6 +1,8 @@
+"use strict";
+
 /* global exports */
 
-exports.up = function(knex, Promise) {
+exports.up = function(knex) {
     return knex.schema
         .createTable('users', function(table) {
             table.string('first_name');
@@ -25,7 +27,7 @@ exports.up = function(knex, Promise) {
         });
 };
 
-exports.down = function(knex, Promise) {
+exports.down = function(knex) {
     return knex.schmea
         .dropTable('users');
 };

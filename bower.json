@@ -1,0 +1,32 @@
+{
+  "name": "doyouloveme",
+  "main": "index.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/cobookman/doyouloveus",
+  "authors": [
+    "Colin Bookman <cobookman@gmail.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "ISC",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "react": "~0.13.0",
+    "flux": "~2.0.2",
+    "commonjs-require-definition": "~0.1.2",
+    "react-router": "~0.12.4"
+  },
+  "dependencies": {
+    "react": "~0.13.0",
+    "commonjs-require-definition": "~0.1.2",
+    "jquery": "~2.1.3"
+  }
+}
