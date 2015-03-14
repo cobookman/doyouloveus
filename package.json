@@ -1,0 +1,28 @@
+{
+  "name": "doyouloveme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cobookman/doyouloveme.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cobookman/doyouloveme/issues"
+  },
+  "homepage": "https://github.com/cobookman/doyouloveme",
+  "dependencies": {
+    "bell": "^2.2.0",
+    "confidence": "^1.0.0",
+    "glue": "^2.0.0",
+    "hapi": "^8.4.0",
+    "hapi-auth-cookie": "^2.0.0",
+    "hoek": "^2.11.1",
+    "knex": "^0.7.6"
+  }
+}
