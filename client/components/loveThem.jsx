@@ -6,13 +6,23 @@ var Router = require('react-router');
 module.exports = React.createClass({
     mixins: [ Router.State ],
     getInitialState: function() {
+        var params = this.getParams();
         return {
-            name: this.getParams().name,
-            amount: 2
+            name: params.name,
+            amount: parseInt(params.amount, 10) || 2
         };
     },
     changeSelection: function(value) {
         this.setState({amount: value});
+    },
+    loveThem: function(service, e) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.localStorage.setItem(
+            'onAuthCallback',
+            '/api/love/' + service + '/' + this.state.name +'/' + this.state.amount
+        );
+        window.location = '/twitter/login';
     },
     renderOption: function(context) {
         var active = this.state.amount === context.value;
@@ -58,8 +68,8 @@ module.exports = React.createClass({
                 <div className="row">
                     <a
                         className="btn btn-primary btn-lg"
-                        target="_blank"
-                        href={"/api/love/" + this.state.name + "/" + this.state.amount}>
+                        href="#"
+                        onClick={this.loveThem.bind(this, 'twitter')}>
                             Twitter
                     </a>
                 </div>

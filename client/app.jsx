@@ -13,6 +13,8 @@ var Landing = require('./components/landing');
 var Error404 = require('./components/error404');
 var Nav = require('./components/nav');
 var LoveThem = require('./components/loveThem');
+var Subscribed = require('./components/subscribed');
+
 var App = React.createClass({
   render: function () {
     return (
@@ -33,7 +35,13 @@ var routes = (
         <Route name="about" handler={About} />
         <Route name="faq" handler={Faq} />
         <Route name="signup" handler={Signup} />
-        <Route name="lovethem" path="love/:name" handler={LoveThem} />
+
+        <Route name="lovethem" path="/love/:name" handler={LoveThem}>
+            <Route path="love/:name/:amount" handler={LoveThem} />
+        </Route>
+
+        <Route path="love/:name/:amount" handler={LoveThem} />
+        <Route name="subscribed" path="subscribed/:name/:amount" handler={Subscribed} />
 
         <NotFoundRoute handler={Error404}/>
         <DefaultRoute name="landing" handler={Landing} />

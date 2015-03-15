@@ -34,6 +34,8 @@ var manifest = {
         './server/onAuth': { basePath: '' },
         './server/public': { basePath: '', auth: false },
 
+        './server/api/love/twitter': { basePath: '/api/love' }
+
     }
 };
 
