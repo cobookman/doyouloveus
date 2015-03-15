@@ -3,7 +3,7 @@
 var Hoek = require('hoek');
 
 exports.register = function (server, options, next) {
-    options = Hoek.applyToDefaults({ basePath: ''}, options);
+    options = Hoek.applyToDefaults({ basePath: '', auth: false }, options);
     server.dependency(["lib/auth"], exports.resolved.bind(exports, options));
 
     return next();
@@ -14,7 +14,7 @@ exports.resolved = function (options, server, next) {
         method: 'GET',
         path: options.basePath + '/logout',
         config: {
-            auth: false,
+            auth: options.auth,
             handler: function (request, reply) {
                 request.auth.session.clear();
                 reply("logged out");
@@ -26,6 +26,6 @@ exports.resolved = function (options, server, next) {
 };
 
 exports.register.attributes = {
-    name: 'twitter/logout',
+    name: 'logout',
     version: '1.0.0'
 };

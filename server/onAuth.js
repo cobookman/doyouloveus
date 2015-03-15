@@ -1,26 +1,27 @@
 "use strict";
 
 var Hoek = require('hoek');
+var fs = require('fs');
+var onAuthJS = fs.readFileSync(__dirname + '/../assets/onAuth.html', 'utf-8');
 
 exports.register = function (server, options, next) {
     options = Hoek.applyToDefaults({ basePath: ''}, options);
 
     server.route({
         method: 'GET',
-        path: options.basePath + '/home',
+        path: options.basePath + '/onAuth',
         config: {
-            handler: exports.handler
+            auth: false,
+            handler: function(request, reply) {
+                reply(onAuthJS);
+            }
         }
     });
 
     return next();
 };
 
-exports.handler = function (request, reply) {
-    reply("logged into the webapp as:\n" + JSON.stringify(request.auth));
-};
-
 exports.register.attributes = {
-    name: 'home',
+    name: 'onAuth',
     version: '1.0.0'
 };

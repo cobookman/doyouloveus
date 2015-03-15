@@ -30,9 +30,10 @@ var manifest = {
         './server/lib/auth': {},
 
         './server/twitter/login': { basePath: '/twitter' },
-        './server/twitter/logout': { basePath: '/twitter' },
-        './server/home': { basePath: ''},
-        './server/public': { basePath: '', auth: false }
+        './server/logout': { basePath: '', auth: false },
+        './server/onAuth': { basePath: '' },
+        './server/public': { basePath: '', auth: false },
+
     }
 };
 
