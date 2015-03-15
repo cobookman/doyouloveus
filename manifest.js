@@ -1,3 +1,5 @@
+"use strict";
+
 var Confidence = require('confidence');
 
 var criteria = {
@@ -29,8 +31,8 @@ var manifest = {
 
         './server/twitter/login': { basePath: '/twitter' },
         './server/twitter/logout': { basePath: '/twitter' },
-        './server/home': { basePath: '' },
-        './server/public': { basePath: '' }
+        './server/home': { basePath: ''},
+        './server/public': { basePath: '', auth: false }
     }
 };
 

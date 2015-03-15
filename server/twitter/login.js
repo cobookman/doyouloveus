@@ -1,8 +1,11 @@
+"use strict";
+
 var Hoek = require('hoek');
 var knex = require('../lib/knex');
 var user = require('../model/user');
 
 exports.register = function (server, options, next) {
+    options = Hoek.applyToDefaults({ basePath: ''}, options);
     server.dependency(["lib/auth"], exports.resolved.bind(exports, options));
 
     return next();

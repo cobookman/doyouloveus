@@ -1,3 +1,5 @@
+"use strict";
+
 var Hoek = require('hoek');
 
 exports.register = function (server, options, next) {

@@ -1,3 +1,5 @@
+"use strict";
+
 var knex = require('../lib/knex');
 var Promise = require('promise'); // jshint ignore:line
 var _ = require('lodash');

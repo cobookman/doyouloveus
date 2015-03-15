@@ -1,3 +1,5 @@
+"use strict";
+
 exports.register = function (server, options, next) {
     server.dependency(["bell", "hapi-auth-cookie"], exports.resolved);
 
@@ -15,8 +17,8 @@ exports.registerSessionAuth = function(server) {
     server.auth.strategy('session', 'cookie', {
         password: 'my secret password :D',
         cookie: 'sid',
-        redirectTo: '/login',
-        isSecure: false
+        isSecure: false,
+        mode: 'optional'
     });
 
     server.auth.default('session');

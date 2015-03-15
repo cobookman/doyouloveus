@@ -1,15 +1,20 @@
+"use strict";
+
 var Hoek = require('hoek');
 var jade = require('jade');
 var fs = require('fs');
 var indexTemplate = jade.compile(fs.readFileSync(__dirname + '/../client/index.jade'));
 
 exports.register = function (server, options, next) {
-    options = Hoek.applyToDefaults({ basePath: ''}, options);
+    options = Hoek.applyToDefaults({ basePath: '', auth: false }, options);
 
     // serve up public javascript
     server.route({
         method: 'GET',
         path:  options.basePath + '/js/{param*}',
+        config: {
+            auth: options.auth
+        },
         handler: {
             directory: {
                 path: __dirname + '/../public/js'
@@ -21,6 +26,9 @@ exports.register = function (server, options, next) {
     server.route({
         method: 'GET',
         path:  options.basePath + '/css/{param*}',
+        config: {
+            auth: options.auth
+        },
         handler: {
             directory: {
                 path: __dirname + '/../public/css'
@@ -33,6 +41,9 @@ exports.register = function (server, options, next) {
     server.route({
         method: 'GET',
         path:  options.basePath + '/img/{param*}',
+        config: {
+            auth: options.auth
+        },
         handler: {
             directory: {
                 path: __dirname + '/../public/img'
@@ -47,19 +58,18 @@ exports.register = function (server, options, next) {
         method: 'GET',
         path: options.basePath + '/{p*}',
         config: {
-            handler: exports.handler
+            auth: options.auth,
+            handler: function(request, reply) {
+                var context = {
+                    userInfo: request.auth && request.auth.credentials || {}
+                };
+
+                reply(indexTemplate(context));
+            }
         }
     });
 
     return next();
-};
-
-exports.handler = function (request, reply) {
-    var context = {
-        userInfo: request.auth && request.auth.credentials || {}
-    };
-
-    reply(indexTemplate(context));
 };
 
 exports.register.attributes = {
