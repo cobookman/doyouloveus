@@ -7,57 +7,40 @@ var Link = Router.Link;
 module.exports = React.createClass({
     render: function() {
         return (
-            <div style={{
+            <div className="landing" style={{
                 marginBottom: '5em'
             }}>
-                <div className="jumbotron">
+                <div className="jumbotron featurette">
                     <div className="container row">
                         <div className="col-md-7">
-                            <h2 className="featurette-heading" style={{
-                                fontSize: '3.25em',
-                                fontWeight: '300',
-                                marginTop: 0
-                            }}>
+                            <h2 className="heading">
                                 Gather supporters and broadcast announcements on their social networks automagically
                             </h2>
                             <p>
-                                <Link className="btn btn-primary btn-lg" to="signup" style={{
-                                    borderRadius: '2px'
-                                }}>Get early access</Link>
+                                <Link className="btn btn-primary btn-lg" to="signup">
+                                    Get early access
+                                </Link>
                             </p>
                         </div>
-                        <div className="col-md-5 featurette-image" style={{
-                            margin: 0,
-                            padding: 0,
-                            background: '#fff'
-                        }}>
-                            <div className="featurette-image" style={{
-                                background: "url('/img/browserBar.png')",
-                                backgroundPosition: 'left top',
-                                backgroundSize: 'cover',
-                                width: '100%',
-                                height: '2.25em',
-                                marginBottom: '1em'
-                            }} />
-                            <img className="featurette-image img-responsive" src="/img/featurette.png" style={{
-                                padding: '1em'
-                            }}/>
+                        <div className="col-md-5 browser">
+                            <div className="top" />
+                            <img className="content img-responsive" src="/img/featurette.png" />
                         </div>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-lg-4 txt-center">
-                        <img src="/img/icons/chat.png" style={{ width: '6.5em', height: '6.5em'}} />
+                    <div className="col-lg-4 txt-center cell">
+                        <img src="/img/icons/chat.png"/>
                         <h2>Create your Campaign</h2>
                         <p>Create a campaign</p>
                     </div>
-                    <div className="col-lg-4 txt-center">
-                        <img src="/img/icons/graph.png" style={{width: '6.5em', height: '6.5em'}} />
+                    <div className="col-lg-4 txt-center cell">
+                        <img src="/img/icons/graph.png" />
                         <h2>Invite Your Supporters</h2>
                         <p>Send your supporters an invite link so they can opt-in via their social media accounts</p>
                     </div>
-                    <div className="col-lg-4 txt-center">
-                        <img src="/img/icons/check.png" style={{width: '6.5em', height: '6.5em'}} />
+                    <div className="col-lg-4 txt-center cell">
+                        <img src="/img/icons/check.png" />
                         <h2>Watch Your Share Count Rise</h2>
                         <p>Each month watch as your posts are automatically shared to your supporters social media accounts</p>
                     </div>
@@ -66,13 +49,13 @@ module.exports = React.createClass({
                 <div className="seperator"></div>
 
                 <div className="row">
-                    <div className="col-lg-offset-2 col-lg-4 txt-center">
-                        <img src="/img/icons/globe.png" style={{width: '6.5em', height: '6.5em'}} />
+                    <div className="col-lg-offset-2 col-lg-4 txt-center cell">
+                        <img src="/img/icons/globe.png" />
                         <h2>Duration</h2>
                         <p>Users can specify for what duration of months they would like to keep supporting you</p>
                     </div>
-                    <div className="col-lg-4 txt-center">
-                        <img src="/img/icons/briefcase.png" style={{width: '6.5em', height: '6.5em'}} />
+                    <div className="col-lg-4 txt-center cell">
+                        <img src="/img/icons/briefcase.png" />
                         <h2>Analytics</h2>
                         <p>Find out how many of your supporters opted in and the estimated reach of your posts</p>
                     </div>

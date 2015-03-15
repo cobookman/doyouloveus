@@ -2,7 +2,6 @@
 var React = require('react');
 var Router = require('react-router');
 var DefaultRoute = Router.DefaultRoute;
-var Link = Router.Link;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 var NotFoundRoute = Router.NotFoundRoute;
@@ -13,7 +12,7 @@ var Signup = require('./components/signup');
 var Landing = require('./components/landing');
 var Error404 = require('./components/error404');
 var Nav = require('./components/nav');
-
+var LoveThem = require('./components/loveThem');
 var App = React.createClass({
   render: function () {
     return (
@@ -34,11 +33,14 @@ var routes = (
         <Route name="about" handler={About} />
         <Route name="faq" handler={Faq} />
         <Route name="signup" handler={Signup} />
+        <Route name="lovethem" path="love/:name" handler={LoveThem} />
+
         <NotFoundRoute handler={Error404}/>
         <DefaultRoute name="landing" handler={Landing} />
     </Route>
 );
 
-Router.run(routes, function (Handler) {
+Router.run(routes, Router.HistoryLocation, function (Handler) {
+
   React.render(<Handler/>, document.body);
 });
