@@ -1,3 +1,5 @@
+"use strict";
+
 var gulp = require('gulp');
 var CombinedStream = require('combined-stream');
 var wrapCommonJS = require('gulp-wrap-commonjs');
@@ -13,7 +15,8 @@ gulp.task('vendor', function() {
     return vendorStream.append(function (next) {
         next(
             gulp.src([
-                './bower_components/react/react.js'
+                './bower_components/react/react.js',
+                './bower_components/react-router/build/global/ReactRouter.js'
             ])
             .pipe(wrapCommonJS({
                 pathModifier: function(path) {
