@@ -1,0 +1,36 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+}
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+// apply navbar active styling if <li><a class="active" ......
+.navbar-inverse .navbar-nav > li > a.active,
+.navbar-inverse .navbar-nav > li > a.active:focus,
+.navbar-inverse .navbar-nav > li > a.active:hover {
+    color: #FFF;
+    background-color: #080808;
+}
+
+.txt-center {
+    text-align: center;
+}
+
+.seperator {
+    width: 100%;
+    border: 1px solid #f3f3f3;
+}
+
+
+.circle-img {
+    border-radius: 100%;
+}

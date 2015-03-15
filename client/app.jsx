@@ -12,23 +12,19 @@ var Faq = require('./components/faq');
 var Signup = require('./components/signup');
 var Landing = require('./components/landing');
 var Error404 = require('./components/error404');
+var Nav = require('./components/nav');
 
 var App = React.createClass({
   render: function () {
     return (
-      <div>
-        <nav>
-          <ul>
-            <li><Link to="landing">Do you love us</Link></li>
-            <li><Link to="about">About</Link></li>
-            <li><Link to="faq">FAQ</Link></li>
-            <li><Link to="signup">Signup</Link></li>
-          </ul>
-        </nav>
+        <div style={{width: '100%', height: '100%'}}>
+            <Nav />
 
-        {/* this is the important part */}
-        <RouteHandler/>
-      </div>
+            {/* this is the important part */}
+            <div className="container">
+                <RouteHandler/>
+            </div>
+        </div>
     );
   }
 });
