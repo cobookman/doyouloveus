@@ -43,9 +43,18 @@ exports.insert = function(row) {
  * Returns a promise
  */
 exports.get = function (query) {
-    return knex('campaign_subscriptions')
-        .where(query)
+    return exports.getAll(query)
         .first();
+};
+
+/**
+ * Returns a promise
+ */
+exports.getAll = function (query) {
+    return knex('campaign_subscriptions')
+        .select()
+        .where(query)
+        .andWhere('expires_at', '>', knex.raw('CURRENT_TIMESTAMP'));
 };
 
 /**

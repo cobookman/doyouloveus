@@ -2,6 +2,7 @@
 
 var Hoek = require('hoek');
 var campaignSubscriptions = require('../../collection/campaignSubscriptions');
+var moment = require('moment');
 
 exports.register = function (server, options, next) {
     options = Hoek.applyToDefaults({ basePath: ''}, options);
@@ -24,7 +25,7 @@ exports.resolved = function(options, server, next) {
                 campaignSubscriptions.add({
                     campaign: request.params.campaign,
                     type: 'twitter',
-                    amount: request.params.amount,
+                    expires_at: moment().add(request.params.amount, 'month').utc().format('YYYY-MM-DD HH:MM:SS'),
                     username: request.auth.credentials.twitter_username
                 })
                 .then(function() {

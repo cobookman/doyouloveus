@@ -9,5 +9,9 @@ gulp watch &
 echo -e "${red}Running mysql migrations${NC}"
 knex migrate:latest
 
+
+echo -e "${red}Starting up RabbitMQ${NC}"
+/usr/local/sbin/rabbitmq-server &
+
 echo -e "\n${red}Running under dev mode${nc}"
 NODE_ENV=development node server

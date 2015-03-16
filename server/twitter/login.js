@@ -47,7 +47,8 @@ exports.resolved = function(options, server, next) {
 
                 request.auth.session.set({
                     displayName: request.auth.credentials.profile.displayName,
-                    twitter_username: request.auth.credentials.profile.username
+                    twitter_username: request.auth.credentials.profile.username,
+                    campaigns: ['colin']
                 });
 
                 return reply.redirect('/onAuth');

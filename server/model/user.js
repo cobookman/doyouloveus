@@ -46,6 +46,7 @@ exports.get = function (userInfo) {
         twitter_username: userInfo.twitter_username
     };
     return knex('users')
+        .select()
         .where(query)
         .first();
 };
@@ -63,6 +64,6 @@ exports.update = function(userInfo) {
     delete userInfo.createdAt;
 
     return knex('users')
-        .where(query)
-        .update(userInfo);
+        .update(userInfo)
+        .where(query);
 };

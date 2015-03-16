@@ -34,8 +34,9 @@ var manifest = {
         './server/onAuth': { basePath: '' },
         './server/public': { basePath: '', auth: false },
 
-        './server/api/love/twitter': { basePath: '/api/love' }
-
+        './server/api/love/twitter': { basePath: '/api/love' },
+        './server/api/queueCampaignMsgs': { basePath: '/api' },
+        './server/tasks/sendTweets': {}
     }
 };
 
