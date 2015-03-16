@@ -11,7 +11,7 @@ exports.up = function(knex) {
 exports.down = function(knex) {
     return knex.schema
         .table('campaign_subscriptions', function(table) {
-            table.addColumn('amount').notNullable();
+            table.string('amount').notNullable();
             table.dropColumn('expires_at');
         });
 };

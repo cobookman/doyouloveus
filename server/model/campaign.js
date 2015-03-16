@@ -22,3 +22,17 @@ exports.update = function(row) {
         .where(query)
         .update(row);
 };
+
+exports.updateLastSentMsg = function(name) {
+    var query = {
+        name: name
+    };
+
+    var row = {
+        updated_at: knex.raw('CURRENT_TIMESTAMP'),
+        last_sent_msg: knex.raw('CURRENT_TIMESTAMP')
+    };
+    return knex('campaigns')
+        .where(query)
+        .update(row);
+};

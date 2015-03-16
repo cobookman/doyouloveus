@@ -39,19 +39,17 @@ exports.resolved = function(options, server, next) {
                     twitter_oauth_secret: request.auth.credentials.secret
                 })
                 .then(function() {
+                    request.auth.session.set({
+                        displayName: request.auth.credentials.profile.displayName,
+                        twitter_username: request.auth.credentials.profile.username
+                    });
 
+                    return reply.redirect('/onAuth');
                 })
                 .catch(function() {
-                    console.log("USER NOT CREATED");
+                    console.log(new Error("USER NOT CREATED"));
+                    return reply('Could not log you in :(').status(500);
                 });
-
-                request.auth.session.set({
-                    displayName: request.auth.credentials.profile.displayName,
-                    twitter_username: request.auth.credentials.profile.username,
-                    campaigns: ['colin']
-                });
-
-                return reply.redirect('/onAuth');
             }
         }
     });

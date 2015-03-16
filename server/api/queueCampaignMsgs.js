@@ -8,7 +8,6 @@ var campaignSubscriptions = require('../collection/campaignSubscriptions');
 var Promise = require('promise'); // jshint ignore:line
 var rabbitmq = require('../lib/rabbitmq');
 
-
 exports.register = function (server, options, next) {
     options = Hoek.applyToDefaults({ basePath: ''}, options);
     server.dependency(["lib/auth"], exports.resolved.bind(exports, options));
@@ -40,16 +39,16 @@ exports.resolved = function(options, server, next) {
 };
 
 exports.handler = function(request, reply) {
-    if(request.auth.credentials.campaigns.indexOf(request.params.campaign) === -1) {
-        return reply({status: 'not authorized to send out campaign'}).code(401);
-    }
-
     // generate list of campaign subscribers
     campaign.get({
-        name: request.params.campaign
+        name: request.params.campaign,
+        twitter_username: request.auth.credentials.twitter_username
     })
     .then(function(campaign) {
-        if(!exports.canSendMsg(campaign)){
+        if(!campaign) {
+            throw new Error("you do not own that campaign");
+        }
+        else if(!exports.canSendMsg(campaign)){
             throw new Error("you sent a message this month already");
         }
         else {
@@ -58,6 +57,14 @@ exports.handler = function(request, reply) {
     })
     .then(function(queued) {
         console.log("queued msgs for campaign " + request.params.campaign, queued);
+        campaign.updateLastSentMsg(request.params.campaign)
+            .then(function() {
+                // do nothing
+            })
+            .catch(function(err) {
+                console.log('failed to update campaign\'s last sent msg field', err);
+            });
+
         return reply({status: 'success', queued: queued});
     })
     .catch(function(err) {
@@ -65,6 +72,7 @@ exports.handler = function(request, reply) {
         return reply({status: 'faiuled to send out campaign', err: err}).code(500);
     });
 };
+
 
 exports.queueMsgs = function(campaign, msg) {
     var promise = new Promise(function(resolve, reject) {
