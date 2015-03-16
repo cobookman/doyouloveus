@@ -16,7 +16,8 @@ gulp.task('vendor', function() {
         next(
             gulp.src([
                 './bower_components/react/react.js',
-                './bower_components/react-router/build/global/ReactRouter.js'
+                './bower_components/react-router/build/global/ReactRouter.js',
+                './bower_components/jquery/dist/jquery.js'
             ])
             .pipe(wrapCommonJS({
                 pathModifier: function(path) {

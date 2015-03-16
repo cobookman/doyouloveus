@@ -1,3 +1,5 @@
+"use strict";
+
 var gulp = require('gulp');
 var CombinedStream = require('combined-stream');
 var wrapCommonJS = require('gulp-wrap-commonjs');

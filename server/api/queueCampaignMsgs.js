@@ -69,7 +69,7 @@ exports.handler = function(request, reply) {
     })
     .catch(function(err) {
         console.log("ERROR couldn't send out campaign " + request.params.campaign, err);
-        return reply({status: 'faiuled to send out campaign', err: err}).code(500);
+        return reply({status: 'failed to send out campaign', message: err.message}).code(500);
     });
 };
 

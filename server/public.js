@@ -7,7 +7,12 @@ var indexTemplate = jade.compile(fs.readFileSync(__dirname + '/../client/index.j
 
 exports.register = function (server, options, next) {
     options = Hoek.applyToDefaults({ basePath: '', auth: false }, options);
+    server.dependency(["lib/auth"], exports.resolved.bind(exports, options));
 
+    return next();
+};
+
+exports.resolved = function(options, server, next) {
     // serve up public javascript
     server.route({
         method: 'GET',
@@ -58,12 +63,15 @@ exports.register = function (server, options, next) {
         method: 'GET',
         path: options.basePath + '/{p*}',
         config: {
-            auth: options.auth,
+            auth: {
+                strategy: 'session',
+                mode: 'try'
+            },
             handler: function(request, reply) {
                 var context = {
                     userInfo: request.auth && request.auth.credentials || {}
                 };
-
+                console.log(request.auth.credentials);
                 reply(indexTemplate(context));
             }
         }

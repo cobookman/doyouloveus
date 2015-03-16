@@ -14,6 +14,7 @@ var Error404 = require('./components/error404');
 var Nav = require('./components/nav');
 var LoveThem = require('./components/loveThem');
 var Subscribed = require('./components/subscribed');
+var Campaignmsg = require('./components/campaignmsg');
 
 var App = React.createClass({
   render: function () {
@@ -42,7 +43,7 @@ var routes = (
 
         <Route path="love/:name/:amount" handler={LoveThem} />
         <Route name="subscribed" path="subscribed/:name/:amount" handler={Subscribed} />
-
+        <Route name="campaignmsg" path="campaign/:name" handler={Campaignmsg} />
         <NotFoundRoute handler={Error404}/>
         <DefaultRoute name="landing" handler={Landing} />
     </Route>
