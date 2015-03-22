@@ -20,7 +20,7 @@ module.exports = {
   },
 
   staging: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
       host:     'localhost',
       database: 'doyouloveme',

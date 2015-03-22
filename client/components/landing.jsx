@@ -61,7 +61,6 @@ module.exports = React.createClass({
                     </div>
                 </div>
 
-                
                 <div className="row">
                     <div className="col-lg-12 txt-center">
                         <h3 style={{
