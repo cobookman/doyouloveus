@@ -5,6 +5,7 @@ module.exports = {
   development: {
     client: 'mysql',
     connection: {
+      host:     'localhost',
       database: 'doloveus',
       user:     'doloveus',
       password: 'doloveus'
@@ -21,6 +22,7 @@ module.exports = {
   staging: {
     client: 'postgresql',
     connection: {
+      host:     'localhost',
       database: 'doyouloveme',
       user:     'username',
       password: 'password'
@@ -37,9 +39,11 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      host:     'ec2-54-243-48-227.compute-1.amazonaws.com',
+      port:     '5432',
+      database: 'ddvh827aippop4',
+      user:     'vsukgibtnuhloi',
+      password: 'qjXv3Kze0mfD0YB3LKGVxrROfE'
     },
     pool: {
       min: 2,
