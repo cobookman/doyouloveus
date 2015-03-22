@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/cobookman/doyouloveme",
   "dependencies": {
+    "amqp": "^0.2.4",
     "bell": "^2.2.0",
     "confidence": "^1.0.0",
     "glue": "^2.0.0",

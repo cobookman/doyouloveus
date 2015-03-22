@@ -40,6 +40,10 @@ var manifest = {
     }
 };
 
+// make connection port be 80 for production
+if(criteria.env === 'production') {
+    manifest.connections[0].port = 80;
+}
 var store = new Confidence.Store(manifest);
 
 exports.get = function (key) {
