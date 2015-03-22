@@ -38,13 +38,7 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: {
-      host:     'ec2-54-243-48-227.compute-1.amazonaws.com',
-      port:     '5432',
-      database: 'ddvh827aippop4',
-      user:     'vsukgibtnuhloi',
-      password: 'qjXv3Kze0mfD0YB3LKGVxrROfE'
-    },
+    connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
       max: 10
