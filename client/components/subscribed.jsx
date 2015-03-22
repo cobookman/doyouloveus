@@ -12,13 +12,45 @@ module.exports = React.createClass({
             amount: params.amount
         };
     },
-
+    numberToText: function(number) {
+        var numbers = [
+            'zero',
+            'one',
+            'two',
+            'three',
+            'four',
+            'five',
+            'six',
+            'seven',
+            'eight',
+            'nine',
+            'ten',
+            'eleven',
+            'twelve'
+        ];
+        if(numbers[number]) {
+            return numbers[number];
+        }
+        else {
+            return number;
+        }
+    },
     render: function() {
+
         return (
-            <div className="container">
+            <div className="container text-center">
                 <h2>
-                    Thanks for subscribing to {this.state.name} for the amount of {this.state.amount}
+                    Thanks for syndicating tweets for <a href={"http://www.twitter.com/" + this.state.name}>
+                        @{this.state.name}
+                    </a>
+                    {' for '}
+                    {this.numberToText(this.state.amount)}
+                    {' '}
+                    {this.state.amount === 1 ? 'month' : 'months'}.
                 </h2>
+                <div className="row">
+                <img src="/img/anchorman.gif" style={{width: '70%'}}/>
+                </div>
             </div>
         );
     }
