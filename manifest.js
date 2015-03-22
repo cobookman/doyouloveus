@@ -20,7 +20,7 @@ var manifest = {
     },
     connections: [
         {
-            port: 8080,
+            port: process.env.PORT || 8080,
             labels: ['http']
         }
     ],
@@ -40,10 +40,6 @@ var manifest = {
     }
 };
 
-// make connection port be 80 for production
-if(criteria.env === 'production') {
-    manifest.connections[0].port = 80;
-}
 var store = new Confidence.Store(manifest);
 
 exports.get = function (key) {
