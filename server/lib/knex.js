@@ -11,5 +11,8 @@ else {
 }
 
 knex = knex(config);
-
+knex.migrate.latest({});
+knex.migrate.currentVersion().then(function(name) {
+    console.log("Currently on migration", name);
+});
 module.exports = knex;
