@@ -1,7 +1,6 @@
 'use strict';
 
 exports.up = function(knex) {
-    console.log("UP5");
     return knex.schema
         .table('campaign_subscriptions', function(table) {
             table.dropColumn('amount');

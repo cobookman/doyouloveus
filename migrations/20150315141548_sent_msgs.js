@@ -1,7 +1,6 @@
 'use strict';
 
 exports.up = function(knex) {
-    console.log("UP3");
     return knex.schema
         .createTable('sent_msgs', function(table) {
             table.string('type').notNullable();

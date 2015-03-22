@@ -46,8 +46,8 @@ exports.resolved = function(options, server, next) {
 
                     return reply.redirect('/onAuth');
                 })
-                .catch(function() {
-                    console.log(new Error("USER NOT CREATED"));
+                .catch(function(err) {
+                    console.log(err, new Error("USER NOT CREATED"));
                     return reply('Could not log you in :(').status(500);
                 });
             }

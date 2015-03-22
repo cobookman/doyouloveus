@@ -1,7 +1,6 @@
 'use strict';
 
 exports.up = function(knex) {
-    console.log("UP6");
     return knex.schema
         .table('campaigns', function(table) {
             table.string('twitter_username').notNullable();
