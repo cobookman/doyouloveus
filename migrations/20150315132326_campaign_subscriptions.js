@@ -1,6 +1,7 @@
 'use strict';
 
 exports.up = function(knex) {
+    console.log("UP2");
     return knex.schema
         .createTable('campaign_subscriptions', function(table) {
             table.string('campaign').notNullable();

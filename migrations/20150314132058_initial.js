@@ -3,6 +3,7 @@
 /* global exports */
 
 exports.up = function(knex) {
+    console.log("UP");
     return knex.schema
         .createTable('users', function(table) {
             table.string('first_name');
@@ -20,10 +21,6 @@ exports.up = function(knex) {
             table.string('twitter_oauth_secret');
 
             table.timestamp('created_at').nullable();
-            table.timestamp('updated_at').notNullable().defaultTo(
-                knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
-            );
-
         });
 };
 

@@ -1,6 +1,7 @@
 'use strict';
 
 exports.up = function(knex) {
+    console.log("UP4");
     return knex.schema
         .table('campaigns', function(table) {
             table.timestamp('last_sent_msg');
