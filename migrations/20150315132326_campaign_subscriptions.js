@@ -1,7 +1,6 @@
 'use strict';
 
 exports.up = function(knex) {
-    console.log("UP2");
     return knex.schema
         .createTable('campaign_subscriptions', function(table) {
             table.string('campaign').notNullable();
@@ -9,18 +8,14 @@ exports.up = function(knex) {
             table.string('amount').notNullable();
             table.string('username').notNullable();
 
-            table.timestamp('created_at').nullable();
-            table.timestamp('updated_at').notNullable().defaultTo(
-                knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
-            );
+            table.timestamp('created_at').notNullable();
+            table.timestamp('updated_at').notNullable();
         })
         .createTable('campaigns', function(table) {
             table.string('name').notNullable();
 
-            table.timestamp('created_at').nullable();
-            table.timestamp('updated_at').notNullable().defaultTo(
-                knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
-            );
+            table.timestamp('created_at').notNullable();
+            table.timestamp('updated_at').notNullable();
         });
 };
 

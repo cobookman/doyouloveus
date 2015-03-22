@@ -8,9 +8,7 @@ exports.up = function(knex) {
             table.string('username').notNullable();
             table.string('campaign').notNullable();
             table.string('message').notNullable();
-            table.timestamp('created_at').notNullable().defaultTo(
-                knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
-            );
+            table.timestamp('created_at').notNullable();
         });
 };
 
