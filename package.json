@@ -29,6 +29,7 @@
     "lodash": "^3.5.0",
     "moment": "^2.9.0",
     "mysql": "^2.5.5",
+    "ntwitter": "^0.5.0",
     "promise": "^6.1.0",
     "twitter": "^1.2.4"
   },

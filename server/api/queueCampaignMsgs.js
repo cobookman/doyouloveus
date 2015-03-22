@@ -74,7 +74,7 @@ exports.handler = function(request, reply) {
 };
 
 
-exports.queueMsgs = function(campaign, msg) {
+exports.queueMsgs = function(campaign, text) {
     var promise = new Promise(function(resolve, reject) {
         // get a list of users who belong to the campaign
         campaignSubscriptions.getAll({
@@ -91,8 +91,9 @@ exports.queueMsgs = function(campaign, msg) {
                 queued[subscription.type].push(subscription.username);
 
                 rabbitmq.publish(subscription.type + '_queue', {
-                    msg: msg,
-                    user: subscription.username
+                    text: text,
+                    type: subscription.type,
+                    username: subscription.username
                 });
             });
 

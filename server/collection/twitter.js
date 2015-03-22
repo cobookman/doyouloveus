@@ -20,11 +20,12 @@ exports.resolved = function(options, server, next) {
                 strategy: 'session',
             },
             handler: function (request, reply) {
-                console.log('amount of love', request.params.amount);
+
+
                 campaignSubscriptions.add({
                     campaign: request.params.campaign,
                     type: 'twitter',
-                    expires_at: moment().add(request.params.amount, 'month').utc().toDate(),
+                    expires_at: moment().add(request.params.amount, 'month').utc().format('YYYY-MM-DD HH:MM:SS'),
                     username: request.auth.credentials.twitter_username
                 })
                 .then(function() {

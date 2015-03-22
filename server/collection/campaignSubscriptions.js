@@ -6,8 +6,11 @@ var _ = require('lodash');
 
 
 exports.add = function(obj) {
-    var where = _.clone(obj);
-    delete where.amount;
+    var where = {
+        campaign: obj.campaign,
+        type: obj.type,
+        username: obj.username
+    };
 
     var promise = new Promise(function(resolve, reject) {
         exports.get(where)
@@ -34,9 +37,24 @@ exports.insert = function(row) {
     row = _.clone(row);
     row.created_at = knex.raw('CURRENT_TIMESTAMP');
     row.updated_at = knex.raw('CURRENT_TIMESTAMP');
-
+    console.log('inserting', row);
     return knex('campaign_subscriptions')
         .insert(row);
+};
+
+/**
+ * Returns a promise
+ */
+exports.update = function(row) {
+    row = _.clone(row);
+    row.updated_at = knex.raw('CURRENT_TIMESTAMP');
+    return knex('campaign_subscriptions')
+        .update(row)
+        .where({
+            campaign: row.campaign,
+            type: row.type,
+            username: row.username
+        });
 };
 
 /**
@@ -55,21 +73,4 @@ exports.getAll = function (query) {
         .select()
         .where(query)
         .andWhere('expires_at', '>', knex.raw('CURRENT_TIMESTAMP'));
-};
-
-/**
- * Returns a promise
- */
-exports.update = function(row) {
-    row = _.clone(row);
-    row.updated_at = knex.raw('CURRENT_TIMESTAMP');
-    delete row.createdAt;
-
-    return knex('campaign_subscriptions')
-        .update(row)
-        .where({
-            campaign: row.campaign,
-            type: row.type,
-            username: row.username
-        });
 };

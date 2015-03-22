@@ -6,6 +6,9 @@ echo -e "${red}Building client code${NC}"
 gulp clean && gulp build 
 gulp watch &
 
+echo -e "${red}Running mysql${NC}"
+mysql.server start
+
 echo -e "${red}Running mysql migrations${NC}"
 knex migrate:latest
 

@@ -1,5 +1,7 @@
 "use strict";
 
+var config = require('../../config');
+
 exports.register = function (server, options, next) {
     server.dependency(["bell", "hapi-auth-cookie"], exports.resolved);
 
@@ -27,9 +29,9 @@ exports.registerSessionAuth = function(server) {
 exports.registerTwitterAuth = function(server) {
     server.auth.strategy('twitter', 'bell', {
         provider: 'twitter',
-        password: 'cookie_encryption_password',
-        clientId: 'gUKpG3OEvmsvBUzqoExm6jS2Y',
-        clientSecret: 'm1duHDoyROOfuUPVU95g1mzyyq8PEw1CFucZjLT7Ys89zCjjos',
+        password: config.twitter.cookie.password,
+        clientId: config.twitter.oauth.clientId,
+        clientSecret: config.twitter.oauth.clientSecret,
         isSecure: false
     });
 };
