@@ -31,8 +31,8 @@ exports.create = function(userInfo) {
  */
 exports.insert = function(userInfo) {
     userInfo = _.clone(userInfo);
-    userInfo.created_at = knex.raw('CURRENT_TIMESTAMP');
-    userInfo.updated_at = knex.raw('CURRENT_TIMESTAMP');
+    userInfo.created_at = new Date();
+    userInfo.updated_at = new Date();
 
     return knex('users')
         .insert(userInfo);
@@ -45,6 +45,7 @@ exports.get = function (userInfo) {
     var query = {
         twitter_username: userInfo.twitter_username
     };
+    
     return knex('users')
         .select()
         .where(query)
@@ -60,7 +61,7 @@ exports.update = function(userInfo) {
     };
 
     userInfo = _.clone(userInfo);
-    userInfo.updated_at = knex.raw('CURRENT_TIMESTAMP');
+    userInfo.updated_at = new Date();
     delete userInfo.createdAt;
 
     return knex('users')
