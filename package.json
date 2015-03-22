@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "/app/node_modules/.bin/gulp build",
+    "postinstall": "./node_modules/.bin/gulp build",
     "start": "NODE_ENV=production node server"
   },
   "engines": {
