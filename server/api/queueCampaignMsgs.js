@@ -7,7 +7,6 @@ var campaign = require('../model/campaign');
 var campaignSubscriptions = require('../collection/campaignSubscriptions');
 var Promise = require('promise'); // jshint ignore:line
 var rabbitmq = require('../lib/rabbitmq');
-console.log('listening rabbitmq', typeof rabbitmq, 'is it a...', rabbitmq.publish);
 
 exports.register = function (server, options, next) {
     options = Hoek.applyToDefaults({ basePath: ''}, options);

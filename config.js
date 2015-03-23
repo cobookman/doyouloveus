@@ -2,9 +2,7 @@
 
 var config = {
     development: {
-        rabbitmq: {
-            host: 'localhost'
-        },
+        rabbitmq: 'amqp://localhost', // { host: 'localhost' }
         twitter: {
             oauth: {
                 clientId: 'gUKpG3OEvmsvBUzqoExm6jS2Y',
@@ -18,9 +16,7 @@ var config = {
         }
     },
     production: {
-        rabbitmq: {
-            host: process.env.CLOUDAMQP_URL
-        },
+        rabbitmq: 'amqp://fnmsyqqi:IYwwy4ivK1Q84Gi_wW2rRm8OEb_OwScK@turtle.rmq.cloudamqp.com/fnmsyqqi', // process.env.CLOUDAMQP_URL
         twitter: {
             oauth: {
                 clientId: 'gUKpG3OEvmsvBUzqoExm6jS2Y',
