@@ -7,7 +7,7 @@ var campaign = require('../model/campaign');
 var campaignSubscriptions = require('../collection/campaignSubscriptions');
 var Promise = require('promise'); // jshint ignore:line
 var rabbitmq = require('../lib/rabbitmq');
-
+console.log('how is rabbitmq doing', typeof rabbitmq, rabbitmq);
 exports.register = function (server, options, next) {
     options = Hoek.applyToDefaults({ basePath: ''}, options);
     server.dependency(["lib/auth"], exports.resolved.bind(exports, options));
