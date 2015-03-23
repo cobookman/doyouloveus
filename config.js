@@ -16,7 +16,7 @@ var config = {
         }
     },
     production: {
-        rabbitmq: 'amqp://fnmsyqqi:IYwwy4ivK1Q84Gi_wW2rRm8OEb_OwScK@turtle.rmq.cloudamqp.com/fnmsyqqi', // process.env.CLOUDAMQP_URL
+        rabbitmq: process.env.CLOUDAMQP_URL, // process.env.CLOUDAMQP_URL
         twitter: {
             oauth: {
                 clientId: 'gUKpG3OEvmsvBUzqoExm6jS2Y',
