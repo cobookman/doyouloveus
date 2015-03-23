@@ -7,4 +7,5 @@ var connection = amqp.createConnection({
     host: config.host || 'localhost'
 });
 
+console.log('listening rabbitmq', typeof connection);
 module.exports = connection;
