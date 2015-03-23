@@ -6,8 +6,8 @@ var user = require('../model/user');
 var noop =  function() {};
 
 exports.register = function (server, options, next) {
-    console.log("Waiting for tweets");
     rabbitmq.on('ready', function() {
+        console.log("Waiting for tweets");
         rabbitmq.queue('twitter_queue', { autoDelete: false, durable: true}, function (queue) {
             console.log("INFO: Listening for msgs posted to twitter_queue");
 
