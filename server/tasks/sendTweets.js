@@ -3,42 +3,45 @@ var rabbitmq = require('../lib/rabbitmq');
 var RATE_LIMIT = 5 * 1000;
 var Twitter = require('../lib/twitter');
 var user = require('../model/user');
-var noop =  function() {};
 
 exports.register = function (server, options, next) {
-    rabbitmq.on('ready', function() {
-        console.log("Waiting for tweets");
-        rabbitmq.queue('twitter_queue', { autoDelete: false, durable: true}, function (queue) {
-            console.log("INFO: Listening for msgs posted to twitter_queue");
-
-            queue.subscribe({ ack: true, prefetchCount: 1}, function (msg) {
-                var sendFn = noop;
-
-                if(msg.type) {
-                    sendFn = exports.sendTweet;
-                }
-
-                sendFn(msg, function(err) {
-                    if(err) {
-                        queue.shift(true, true); // reject, failed to send, and reque
-                    }
-                    else {
-                        setTimeout(function() {
-                            queue.shift(); //ack, successfully sent out
-                        }, RATE_LIMIT);
-                    }
-                });
-            });
+    rabbitmq.then(function onRabbitMQConn (conn) {
+        var ok = conn.createChannel();
+        ok = ok.then(function onChannel (channel) {
+            channel.assertQueue('twitter_queue');
+            channel.consume('twitter_queue', exports.onMsg.bind(exports, channel));
         });
-    });
+        return ok;
+    })
+    .then(null, console.warn);
 
     return next();
+};
+
+exports.onMsg = function(channel, msg) {
+    if (msg === null) {
+        console.warn(new Error("NULL MESSAGE"));
+        return false;
+    }
+
+    var data = JSON.parse(msg.content.toString());
+
+    exports.sendTweet(data, function(err) {
+        if(!err) {
+            setTimeout(function() {
+                channel.ack(msg);
+            }, RATE_LIMIT);
+        }
+        else {
+            console.warn("FAILED TO SEND", data);
+        }
+    });
 };
 
 exports.sendTweet = function (msg, cb) {
     // get user credentials
     var onFail = function(err) {
-        console.log('ERROR:', err, msg);
+        console.warn('ERROR:', err, msg);
         cb(err, null);
     };
 
@@ -56,7 +59,7 @@ exports.sendTweet = function (msg, cb) {
                 return onFail(err);
             }
             else {
-                console.log("SENT TWEET", msg);
+                console.warn("SENT TWEET", msg);
                 return cb(null);
             }
         });

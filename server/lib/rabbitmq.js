@@ -1,8 +1,6 @@
 'use strict';
 
-var amqp = require('amqp');
 var config = require('../../config').rabbitmq;
+var amqp = require('amqplib').connect(config);
 
-var connection = amqp.createConnection(config);
-
-module.exports = connection;
+module.exports = amqp;

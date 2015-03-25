@@ -90,11 +90,24 @@ exports.queueMsgs = function(campaign, text) {
                 }
                 queued[subscription.type].push(subscription.username);
 
-                rabbitmq.publish(subscription.type + '_queue', {
-                    text: text,
-                    type: subscription.type,
-                    username: subscription.username
-                });
+                rabbitmq.then(function(conn) {
+                    var ok = conn.createChannel();
+                    ok = ok.then(function(ch) {
+                        ch.assertQueue(subscription.type + '_queue');
+                        ch.sendToQueue(
+                            subscription.type + '_queue',
+                            new Buffer(
+                                JSON.stringify({
+                                    text: text,
+                                    type: subscription.type,
+                                    username: subscription.username
+                                })
+                            )
+                        );
+                    });
+                    return ok;
+                })
+                .then(null, console.warn);
             });
 
             resolve(queued);

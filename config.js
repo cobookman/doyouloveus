@@ -2,7 +2,7 @@
 
 var config = {
     development: {
-        rabbitmq: 'amqp://localhost', // { host: 'localhost' }
+        rabbitmq:  'amqp://localhost',
         twitter: {
             oauth: {
                 clientId: 'gUKpG3OEvmsvBUzqoExm6jS2Y',
@@ -16,7 +16,7 @@ var config = {
         }
     },
     production: {
-        rabbitmq: process.env.CLOUDAMQP_URL, // process.env.CLOUDAMQP_URL
+        rabbitmq: process.env.CLOUDAMQP_URL,
         twitter: {
             oauth: {
                 clientId: 'gUKpG3OEvmsvBUzqoExm6jS2Y',
