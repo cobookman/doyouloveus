@@ -100,6 +100,7 @@ exports.queueMsgs = function(campaign, text) {
                                 JSON.stringify({
                                     text: text,
                                     type: subscription.type,
+                                    campaign: campaign.name,
                                     username: subscription.username
                                 })
                             )

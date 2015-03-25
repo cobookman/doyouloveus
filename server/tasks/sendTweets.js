@@ -3,6 +3,7 @@ var rabbitmq = require('../lib/rabbitmq');
 var RATE_LIMIT = 5 * 1000;
 var Twitter = require('../lib/twitter');
 var user = require('../model/user');
+var knex = require('../lib/knex');
 
 exports.register = function (server, options, next) {
     rabbitmq.then(function onRabbitMQConn (conn) {
@@ -38,13 +39,32 @@ exports.onMsg = function(channel, msg) {
     });
 };
 
+
+exports.onTweetFail = function(msg, cb, err) {
+    console.warn(new Error("ERROR, failed to send tweet"), err, msg);
+    cb(err, null);
+};
+
+exports.onTweetSuccess = function(msg, cb) {
+    knex('sent_msgs').insert({
+        type: msg.type,
+        username: msg.username,
+        campaign: msg.campaign,
+        message: msg.text,
+        created_at: new Date()
+    })
+    .then(function() {
+        console.log("Logged Sent Tweet for", msg);
+    })
+    .catch(function(err) {
+        console.warn("Unable to log sent tweet for", msg, err);
+    });
+
+    return cb(null);
+};
+
 exports.sendTweet = function (msg, cb) {
     // get user credentials
-    var onFail = function(err) {
-        console.warn('ERROR:', err, msg);
-        cb(err, null);
-    };
-
     user.get({
         twitter_username:  msg.username
     })
@@ -56,15 +76,15 @@ exports.sendTweet = function (msg, cb) {
 
         client.updateStatus(msg.text, function(err) {
             if(err) {
-                return onFail(err);
+                exports.onFail(msg, cb, err);
             }
             else {
-                console.warn("SENT TWEET", msg);
-                return cb(null);
+                return exports.onTweetSuccess(msg, cb);
+
             }
         });
     })
-    .catch(onFail);
+    .catch(exports.onTweetFail.bind(exports, msg, cb));
 };
 
 exports.register.attributes = {
