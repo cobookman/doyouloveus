@@ -20,7 +20,6 @@ exports.resolved = function(options, server, next) {
                 mode: 'try'
             },
             handler: function (request, reply) {
-                console.log("REQUEST", request.headers.host, request.info);
                 if (!request.auth.isAuthenticated) {
                     return reply('Authentication failed due to: ' + request.auth.error.message);
                 }
