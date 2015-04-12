@@ -8,7 +8,7 @@ module.exports = React.createClass({
     getInitialState: function() {
         var params = this.getParams();
         return {
-            name: params.name,
+            name: window.decodeURIComponent(params.name),
             amount: parseInt(params.amount, 10) || 2
         };
     },

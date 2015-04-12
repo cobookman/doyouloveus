@@ -36,6 +36,9 @@ var manifest = {
 
         './server/api/love/twitter': { basePath: '/api/love' },
         './server/api/queueCampaignMsgs': { basePath: '/api' },
+
+        './server/api/payments': { basePath: '/api' },
+
         './server/tasks/sendTweets': {}
     }
 };

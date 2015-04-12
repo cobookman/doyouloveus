@@ -12,8 +12,8 @@ var config = {
                 password: 'cookie_encryption_password'
             },
             rateLimit: 15*1000
-
-        }
+        },
+        stripe: 'sk_live_lZzZpfKa4Tc11klJ9IyeZAC0',
     },
     production: {
         rabbitmq: process.env.CLOUDAMQP_URL,
@@ -26,8 +26,8 @@ var config = {
                 password: 'cookie_encryption_password'
             },
             rateLimit: 15*1000
-
-        }
+        },
+        stripe: 'sk_live_lZzZpfKa4Tc11klJ9IyeZAC0'
     }
 };
 
