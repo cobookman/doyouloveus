@@ -93,9 +93,7 @@ module.exports = React.createClass({
             <div className="container lovethem">
                 <h2 className="text-center">
                     {"How much do you love "}
-                    <a href={"http://www.twitter.com/" + this.state.name}>
-                        @{this.state.name}
-                    </a>
+                    <b style={{color: '#111'}}>{this.state.name}</b>
                 </h2>
                 <div className="row" style={{marginTop: '25px'}}>
                     {this.renderOption({

@@ -40,9 +40,7 @@ module.exports = React.createClass({
         return (
             <div className="container text-center">
                 <h2>
-                    Thanks for syndicating tweets for <a href={"http://www.twitter.com/" + this.state.name}>
-                        @{this.state.name}
-                    </a>
+                    Thanks for syndicating tweets from <b style={{color: "#111"}}>{this.state.name}</b>
                     {' for '}
                     {this.numberToText(this.state.amount)}
                     {' '}
