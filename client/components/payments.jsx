@@ -3,8 +3,12 @@
 
 var React = require('react');
 var $ = require('jquery');
+var Router = require('react-router');
+var Plan = require('./plan');
+var plans = require('../plans');
 
 module.exports = React.createClass({
+    mixins: [ Router.State ],
     getInitialState: function() {
         return {
             pendingAuth: false,
@@ -43,7 +47,8 @@ module.exports = React.createClass({
             campaign_name: this.state.campaign_name,
             twitter_username: this.state.twitter_username,
             email: this.state.email,
-            token: response.id
+            token: response.id,
+            coupon: this.state.coupon
         })
         .then(function() {
             this.setState({error: false, addedCustomer: true });
@@ -73,6 +78,7 @@ module.exports = React.createClass({
             </div>
         );
     },
+
     renderForm: function() {
         var alerts;
 
@@ -81,68 +87,84 @@ module.exports = React.createClass({
                 <div className="alert alert-danger">{this.state.error}</div>
             );
         }
-
+        var planName = this.getParams().plan;
+        var planDetails = plans[planName];
         return (
-            <form id="payment-form" className="form-horizontal" onSubmit={this.onSubmit}>
-                <h2>Submit your Payment Information</h2>
-                {alerts}
-                {this.renderFormComponent({
-                    type: 'text',
-                    id: 'first_name',
-                    label: 'First Name',
-                    stripe: null
-                })}
-                {this.renderFormComponent({
-                    type: 'text',
-                    id: 'last_name',
-                    label: 'Last Name',
-                    stripe: null
-                })}
-                {this.renderFormComponent({
-                    type: 'email',
-                    id: 'email',
-                    label: 'Email Address',
-                    stripe: null
-                })}
-                {this.renderFormComponent({
-                    type: 'text',
-                    id: 'twitter_username',
-                    label: 'Twitter Username',
-                    stripe: null
-                })}
-                {this.renderFormComponent({
-                    type: 'text',
-                    id: 'campaign_name',
-                    label: 'Campaign Name',
-                    stripe: null
-                })}
-                {this.renderFormComponent({
-                    type: 'text',
-                    id: 'card-number',
-                    label: 'Credit Card Number',
-                    stripe: 'number'
-                })}
-                {this.renderFormComponent({
-                    type: 'text',
-                    id: 'cvc-number',
-                    label: 'CVC',
-                    stripe: 'cvc'
-                })}
-                <div className="form-group">
-                    <label htmlFor="expiration" className="col-sm-2 control-label">Expiration (MM/YYYY)</label>
-                    <div className="col-sm-10">
-                        <input type="text" size="2" data-stripe="exp-month"/>
-                        <span> / </span>
-                        <input type="text" size="4" data-stripe="exp-year"/>
+            <div className="row">
+                <form id="payment-form" className="form-horizontal col-md-8" onSubmit={this.onSubmit}>
+                    <h2>Submit your Payment Information</h2>
+                    {alerts}
+                    {this.renderFormComponent({
+                        type: 'text',
+                        id: 'first_name',
+                        label: 'First Name',
+                        stripe: null
+                    })}
+                    {this.renderFormComponent({
+                        type: 'text',
+                        id: 'last_name',
+                        label: 'Last Name',
+                        stripe: null
+                    })}
+                    {this.renderFormComponent({
+                        type: 'email',
+                        id: 'email',
+                        label: 'Email Address',
+                        stripe: null
+                    })}
+                    {this.renderFormComponent({
+                        type: 'text',
+                        id: 'twitter_username',
+                        label: 'Twitter Username',
+                        stripe: null
+                    })}
+                    {this.renderFormComponent({
+                        type: 'text',
+                        id: 'campaign_name',
+                        label: 'Campaign Name',
+                        stripe: null
+                    })}
+                    {this.renderFormComponent({
+                        type: 'text',
+                        id: 'card-number',
+                        label: 'Credit Card Number',
+                        stripe: 'number'
+                    })}
+                    {this.renderFormComponent({
+                        type: 'text',
+                        id: 'cvc-number',
+                        label: 'CVC',
+                        stripe: 'cvc'
+                    })}
+                    {this.renderFormComponent({
+                        type: 'text',
+                        id: 'coupon',
+                        label: 'Coupon Code',
+                        stripe: 'coupon'
+                    })}
+                    <div className="form-group">
+                        <label htmlFor="expiration" className="col-sm-2 control-label">Expiration (MM/YYYY)</label>
+                        <div className="col-sm-10">
+                            <input type="text" size="2" data-stripe="exp-month"/>
+                            <span> / </span>
+                            <input type="text" size="4" data-stripe="exp-year"/>
+                        </div>
                     </div>
-                </div>
-                <div className="form-group">
-                    <div className="col-sm-offset-2 col-sm-10">
-                    <button type="submit" className="btn btn-default" style={{disabled: this.state.pendingAuth}}>Submit Payment</button>
+                    <div className="form-group">
+                        <div className="col-sm-offset-2 col-sm-10">
+                        <button type="submit" className="btn btn-default" style={{disabled: this.state.pendingAuth}}>Submit Payment</button>
+                        </div>
                     </div>
+                </form>
+                <div className="col-md-3">
+                    <h3>Plan Overview</h3>
+                    <Plan
+                        name={planName}
+                        price={planDetails.price}
+                        tweets={planDetails.tweets} >
+                    </Plan>
                 </div>
-
-            </form>
+            </div>
         );
     },
     render: function() {

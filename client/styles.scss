@@ -35,5 +35,31 @@ body {
     border-radius: 2px;
 }
 
+.pricingBox {
+    text-align: center;
+    background: #333;
+    color: #eee;
+    padding: 25px 0;
+}
+
+.pricingBox h1,
+.pricingBox h2,
+.pricingBox h3,
+.pricingBox h4,
+.pricingBox h4 {
+    margin: 0;
+    padding: 0;
+    line-height: 1.75em;
+}
+
+.pricingBox a {
+    color: #eee;
+    border-radius: 1em;
+    font-size: 2em;
+    line-height: 2.5em;
+    background: #428BCA;
+    padding: 0.2em 1.25em;
+
+}
 @import "styles/landing.scss";
 @import "styles/lovethem.scss";

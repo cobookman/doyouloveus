@@ -43,7 +43,8 @@ exports.handler = function(request, reply) {
                 updated_at: new Date(),
                 last_sent_msg: null,
                 twitter_username: request.payload.twitter_username,
-                stripe_customer_id: customer.id
+                stripe_customer_id: customer.id,
+                coupon: request.payload.coupon || null
             });
         })
         .then(function() {

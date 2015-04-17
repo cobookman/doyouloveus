@@ -3,8 +3,25 @@
 var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
-
+var Plan = require('./plan');
+var plans = require('../plans');
 module.exports = React.createClass({
+    renderPlans: function() {
+        var output = [];
+        for(var key in plans) {
+            if(plans.hasOwnProperty(key)) {
+                output.push(
+                    <div className="col-md-3">
+                        <Plan
+                            name={key}
+                            price={plans[key].price}
+                            tweets={plans[key].tweets} />
+                    </div>
+                );
+            }
+        }
+        return output;
+    },
     render: function() {
         return (
             <div className="landing" style={{
@@ -61,21 +78,17 @@ module.exports = React.createClass({
                     </div>
                 </div>
 
-                <div className="row">
-                    <div className="col-lg-12 txt-center">
-                        <h3 style={{
-                            fontSize: '2.75em'
-                        }}>DYLUs is in Private Beta</h3>
+                <div className="seperator"></div>
 
-                        <p style={{
-                            fontSize: '1.33em'
-                        }}>
-                            Sign up and get early access when we launch
-                        </p>
-
-                        <Link className="btn btn-primary btn-lg" to="signup" style={{
-                            borderRadius: '2px'
-                        }}>Get early access</Link>
+                <div className="row" style={{marginTop: '1em'}}>
+                    {this.renderPlans()}
+                    <div className="col-md-3">
+                        <div className="pricingBox">
+                            <h3>Enterprise</h3>
+                            <h1>Contact Us</h1>
+                            <h3>75+ tweets</h3>
+                            <a href='mailto:sales@doyouloveus.com'>Sign Up</a>
+                        </div>
                     </div>
                 </div>
             </div>

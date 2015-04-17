@@ -45,7 +45,7 @@ var routes = (
         <Route path="love/:name/:amount" handler={LoveThem} />
         <Route name="subscribed" path="subscribed/:name/:amount" handler={Subscribed} />
         <Route name="campaignmsg" path="campaign/:name" handler={Campaignmsg} />
-        <Route name="payments" path="payments" handler={Payments} />
+        <Route name="payments" path="payments/:plan" handler={Payments} />
 
         <NotFoundRoute handler={Error404}/>
         <DefaultRoute name="landing" handler={Landing} />
