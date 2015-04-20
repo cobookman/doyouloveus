@@ -54,3 +54,12 @@ Router.run(routes, Router.HistoryLocation, function (Handler) {
 
   React.render(<Handler/>, document.body);
 });
+
+// load jquery as global
+window.jQuery = window.$ = require('jquery');
+
+// lazy load bootstrap js
+var s = document.createElement('script');
+s.type = 'application/javascript';
+s.src = window.location.protocol + '//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js';
+document.getElementsByTagName('head')[0].appendChild(s);
