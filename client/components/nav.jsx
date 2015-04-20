@@ -4,6 +4,36 @@ var Router = require('react-router');
 var Link = Router.Link;
 
 module.exports = React.createClass({
+    renderUserDetails: function() {
+        if(window.user && window.user.twitter_username) {
+            return [
+                (
+                    <li>
+                        <Link to="account" params={{username: window.user.twitter_username}}>
+                            <span style={{
+                                background: 'url(/img/icons/twitter-bird.png)',
+                                backgroundRepeat: 'no-repeat',
+                                paddingLeft: '21px',
+                                backgroundSize: '18px'
+                            }}>
+                                @{window.user.twitter_username}
+                            </span>
+                        </Link>
+                    </li>
+                ),
+                (
+                    <li>
+                        <a href="/logout">Logout</a>
+                    </li>
+                )
+            ];
+        }
+        else {
+            return (
+                <li><a href="/twitter/login">Login</a></li>
+            );
+        }
+    },
     render: function () {
         return (
             <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -29,6 +59,9 @@ module.exports = React.createClass({
                             <li><Link to="about">About</Link></li>
                             <li><Link to="faq">FAQ</Link></li>
                             <li><a href="/#plans">Signup</a></li>
+                        </ul>
+                        <ul className="nav navbar-nav navbar-right">
+                            {this.renderUserDetails()}
                         </ul>
                     </div>
                 </div>

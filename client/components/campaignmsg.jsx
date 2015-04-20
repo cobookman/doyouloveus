@@ -15,12 +15,7 @@ module.exports = React.createClass({
     },
     componentDidMount: function() {
         // check if authenticated
-        var userInfo;
-        try {
-            userInfo = JSON.parse(document.querySelector('[data-hook=user-information]').innerHTML);
-        } catch(e) {}
-
-        if (!userInfo.displayName) {
+        if (!window.user.displayName) {
             window.localStorage.setItem(
                 'onAuthCallback', window.location.pathname
             );

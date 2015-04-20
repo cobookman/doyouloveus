@@ -15,6 +15,10 @@ var LoveThem = require('./components/loveThem');
 var Subscribed = require('./components/subscribed');
 var Campaignmsg = require('./components/campaignmsg');
 var Payments = require('./components/payments');
+var Account = require('./components/account');
+
+// grab user information into global under window
+window.user = JSON.parse(document.querySelector('[data-hook=user-information]').innerHTML);
 
 var App = React.createClass({
   render: function () {
@@ -44,6 +48,7 @@ var routes = (
         <Route name="subscribed" path="subscribed/:name/:amount" handler={Subscribed} />
         <Route name="campaignmsg" path="campaign/:name" handler={Campaignmsg} />
         <Route name="payments" path="payments/:plan" handler={Payments} />
+        <Route name="account" path="account/:username" handler={Account} />
 
         <NotFoundRoute handler={Error404}/>
         <DefaultRoute name="landing" handler={Landing} />

@@ -121,8 +121,14 @@ module.exports = React.createClass({
                         className="btn btn-primary btn-lg"
                         href="#"
                         onClick={this.loveThem.bind(this, 'twitter')}
-                        style={{fontSize: '3em'}}>
-                            {"Let's go"}
+                        style={{fontSize: '15px', fontWeight: '600'}}>
+                            <span style={{
+                                background: 'url(/img/icons/twitter-bird.png)',
+                                paddingLeft: '30px',
+                                backgroundRepeat: 'no-repeat'
+                            }}>
+                                Syndicate Tweets
+                            </span>
                     </a>
                 </div>
             </div>

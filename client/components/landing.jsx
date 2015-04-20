@@ -86,7 +86,7 @@ module.exports = React.createClass({
                         <div className="pricingBox">
                             <h3>Enterprise</h3>
                             <h1>Contact Us</h1>
-                            <h3>75+ tweets</h3>
+                            <h3>75+ supporters</h3>
                             <a href='mailto:sales@doyouloveus.com'>Sign Up</a>
                         </div>
                     </div>
