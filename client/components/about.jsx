@@ -43,7 +43,7 @@ module.exports = React.createClass({
                     <h3>Staff</h3>
                     {this.renderStaff({
                         name: "Colin Bookman",
-                        title: "Co Founder",
+                        title: "Adviser",
                         img: "/img/staff/colin.bookman.jpg"
                     })}
                     {this.renderStaff({
