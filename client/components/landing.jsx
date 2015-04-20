@@ -34,9 +34,9 @@ module.exports = React.createClass({
                                 Gather supporters and broadcast announcements on their social networks automagically
                             </h2>
                             <p>
-                                <Link className="btn btn-primary btn-lg" to="signup">
-                                    Get early access
-                                </Link>
+                                <a href="#plans" className="btn btn-primary btn-lg">
+                                    Sign Up
+                                </a>
                             </p>
                         </div>
                         <div className="col-md-5 browser">
@@ -80,7 +80,7 @@ module.exports = React.createClass({
 
                 <div className="seperator"></div>
 
-                <div className="row" style={{marginTop: '1em'}}>
+                <div id="plans" className="row" style={{marginTop: '1em'}}>
                     {this.renderPlans()}
                     <div className="col-md-3">
                         <div className="pricingBox">

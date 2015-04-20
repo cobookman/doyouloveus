@@ -8,7 +8,6 @@ var NotFoundRoute = Router.NotFoundRoute;
 
 var About = require('./components/about');
 var Faq = require('./components/faq');
-var Signup = require('./components/signup');
 var Landing = require('./components/landing');
 var Error404 = require('./components/error404');
 var Nav = require('./components/nav');
@@ -36,7 +35,6 @@ var routes = (
     <Route name="app" path="/" handler={App}>
         <Route name="about" handler={About} />
         <Route name="faq" handler={Faq} />
-        <Route name="signup" handler={Signup} />
 
         <Route name="lovethem" path="/love/:name" handler={LoveThem}>
             <Route path="love/:name/:amount" handler={LoveThem} />
