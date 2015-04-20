@@ -48,7 +48,7 @@ exports.resolved = function(options, server, next) {
                 })
                 .catch(function(err) {
                     console.log(err, new Error("USER NOT CREATED"));
-                    return reply('Could not log you in :(').status(500);
+                    return reply('Could not log you in :(').code(500);
                 });
             }
         }
