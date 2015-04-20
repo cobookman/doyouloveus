@@ -94,6 +94,7 @@ module.exports = React.createClass({
                 <h2 className="text-center">
                     {"How much do you love "}
                     <b style={{color: '#111'}}>{this.state.name}</b>
+                    ?
                 </h2>
                 <div className="row" style={{marginTop: '25px'}}>
                     {this.renderOption({
