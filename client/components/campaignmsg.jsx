@@ -3,6 +3,7 @@
 var React = require('react');
 var Router = require('react-router');
 var $ = require('jquery');
+var forceAuth = require('../utils/forceAuth');
 
 module.exports = React.createClass({
     mixins: [ Router.State ],
@@ -13,14 +14,8 @@ module.exports = React.createClass({
             campaign: params.name
         };
     },
-    componentDidMount: function() {
-        // check if authenticated
-        if (!window.user.displayName) {
-            window.localStorage.setItem(
-                'onAuthCallback', window.location.pathname
-            );
-            window.location = '/twitter/login';
-        }
+    componentWillMount: function() {
+        forceAuth();
     },
     updateMessage: function(e) {
         this.setState({

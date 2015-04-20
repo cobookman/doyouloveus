@@ -6,6 +6,7 @@ var $ = require('jquery');
 var Router = require('react-router');
 var Plan = require('./plan');
 var plans = require('../plans');
+var forceAuth = require('../utils/forceAuth');
 
 module.exports = React.createClass({
     mixins: [ Router.State ],
@@ -17,6 +18,8 @@ module.exports = React.createClass({
         };
     },
     componentWillMount: function() {
+        forceAuth();
+
         // load stripe script
         var s = document.createElement('script');
         s.src = 'https://js.stripe.com/v2/';
@@ -38,6 +41,21 @@ module.exports = React.createClass({
         Stripe.card.createToken($form, this.onStripeResponse);
         this.setState({pendingAuth: true, error: null });
     },
+    getName: function() {
+        var parts = window.user.displayName.split(' ');
+        if(parts.length >= 2) {
+            return {
+                first_name: parts[0],
+                last_name: parts[1]
+            };
+        }
+        else {
+            return {
+                first_name: window.user.displayName,
+                last_name: ''
+            };
+        }
+    },
     onStripeResponse: function(status, response) {
         this.setState({pendingAuth: false});
 
@@ -46,11 +64,13 @@ module.exports = React.createClass({
             return;
         }
 
+        var name = this.getName();
+
         $.post('/api/payments', {
-            first_name: this.state.first_name,
-            last_name: this.state.last_name,
+            first_name: name.first_name,
+            last_name: name.last_name,
             campaign_name: this.state.campaign_name,
-            twitter_username: this.state.twitter_username,
+            twitter_username: window.user.twitter_username,
             email: this.state.email,
             token: response.id,
             coupon: this.state.coupon
@@ -100,27 +120,9 @@ module.exports = React.createClass({
                     <h2>Submit your Payment Information</h2>
                     {alerts}
                     {this.renderFormComponent({
-                        type: 'text',
-                        id: 'first_name',
-                        label: 'First Name',
-                        stripe: null
-                    })}
-                    {this.renderFormComponent({
-                        type: 'text',
-                        id: 'last_name',
-                        label: 'Last Name',
-                        stripe: null
-                    })}
-                    {this.renderFormComponent({
                         type: 'email',
                         id: 'email',
                         label: 'Email Address',
-                        stripe: null
-                    })}
-                    {this.renderFormComponent({
-                        type: 'text',
-                        id: 'twitter_username',
-                        label: 'Twitter Username',
                         stripe: null
                     })}
                     {this.renderFormComponent({

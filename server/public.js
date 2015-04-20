@@ -71,6 +71,7 @@ exports.resolved = function(options, server, next) {
                 var context = {
                     userInfo: request.auth && request.auth.credentials || {}
                 };
+
                 console.log(request.auth.credentials);
                 reply(indexTemplate(context));
             }

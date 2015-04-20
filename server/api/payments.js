@@ -110,6 +110,10 @@ exports.addStripeCustomer = function (request) {
             source: request.payload.token
         };
 
+        if(request.payload.coupon) {
+            params.coupon = request.payload.coupon;
+        }
+
         stripe.customers.create(params, function(err, customer) {
             if(!err && customer) {
                 return resolve(customer);
