@@ -14,7 +14,8 @@ module.exports = React.createClass({
         return {
             pendingAuth: false,
             error: null,
-            addedCustomer: false
+            addedCustomer: false,
+            showCouponInput: false
         };
     },
     componentWillMount: function() {
@@ -90,7 +91,7 @@ module.exports = React.createClass({
     renderFormComponent: function(data) {
         return (
             <div className="form-group">
-                <label for={data.id} className="col-sm-2 control-label">{data.label}</label>
+                <label htmlFor={data.id} className="col-sm-2 control-label">{data.label}</label>
                 <div className="col-sm-10">
                     <input
                         type={data.type}
@@ -103,7 +104,51 @@ module.exports = React.createClass({
             </div>
         );
     },
+    renderMonthDropdownOptions: function() {
+        var months = ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
+        var output = [];
+        for(var i = 0, l = months.length; i < l; ++i) {
+            var monthName = months[i];
+            var monthDigit = '' + i;
+            if(i < 10) {
+                monthDigit = '0' + monthDigit;
+            }
 
+            output.push((
+                <option value={i+1}>{monthDigit} - {monthName}</option>
+            ));
+        }
+        return output;
+    },
+    showCoupon: function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        this.setState({showCouponInput: true});
+    },
+    renderCoupon: function() {
+        if(this.state.showCouponInput) {
+            return this.renderFormComponent({
+                type: 'text',
+                id: 'coupon',
+                label: 'Coupon Code',
+                stripe: 'coupon'
+            });
+        }
+        else {
+            return (
+                <div className="form-group">
+                    <button
+                        onClick={this.showCoupon}
+                        className="col-sm-offset-2 btn btn-default"
+                        style={{marginBottom: '1em'}}>
+
+                        Add Coupon Code
+                    </button>
+                </div>
+            );
+        }
+    },
     renderForm: function() {
         var alerts;
 
@@ -143,23 +188,23 @@ module.exports = React.createClass({
                         label: 'CVC',
                         stripe: 'cvc'
                     })}
-                    {this.renderFormComponent({
-                        type: 'text',
-                        id: 'coupon',
-                        label: 'Coupon Code',
-                        stripe: 'coupon'
-                    })}
+
                     <div className="form-group">
                         <label htmlFor="expiration" className="col-sm-2 control-label">Expiration (MM/YYYY)</label>
                         <div className="col-sm-10">
-                            <input type="text" size="2" data-stripe="exp-month"/>
+                            <select data-stripe="exp-month">
+                                {this.renderMonthDropdownOptions()}
+                            </select>
                             <span> / </span>
-                            <input type="text" size="4" data-stripe="exp-year"/>
+                            <input type="text" size="4" maxLength="4" data-stripe="exp-year"/>
                         </div>
                     </div>
+
+                    {this.renderCoupon()}
+
                     <div className="form-group">
                         <div className="col-sm-offset-2 col-sm-10">
-                        <button type="submit" className="btn btn-default" style={{disabled: this.state.pendingAuth}}>Submit Payment</button>
+                            <button type="submit" className="btn btn-primary" style={{disabled: this.state.pendingAuth}}>Submit Payment</button>
                         </div>
                     </div>
                 </form>
