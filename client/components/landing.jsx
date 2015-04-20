@@ -87,7 +87,7 @@ module.exports = React.createClass({
                             <h3>Enterprise</h3>
                             <h1>Contact Us</h1>
                             <h3>75+ supporters</h3>
-                            <a href='mailto:sales@doyouloveus.com'>Sign Up</a>
+                            <a href='mailto:support@doyouloveus.com?subject=Enterprise Plan'>Sign Up</a>
                         </div>
                     </div>
                 </div>
