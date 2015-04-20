@@ -52,7 +52,7 @@ module.exports = React.createClass({
                         img: "/img/staff/brian.clark.jpg"
                     })}
                     {this.renderStaff({
-                        name: "Kumarovski Thangudic",
+                        name: "Kumar Thangudic",
                         title: "Co Founder",
                         img: "/img/staff/kumarovski.thangudic.jpg"
                     })}
