@@ -22,7 +22,12 @@ module.exports = React.createClass({
         s.src = 'https://js.stripe.com/v2/';
         s.type = 'text/javascript';
         s.onload = s.onreadystatechange = function() {
-            Stripe.setPublishableKey('pk_live_jYt4ZrKVtHQGXurhn7pMTN6w');
+            if(window.location.hostname === 'localhost') {
+                Stripe.setPublishableKey('pk_test_Tn8scBekhDckaNpBhYXNWtwm');
+            }
+            else {
+                Stripe.setPublishableKey('pk_live_jYt4ZrKVtHQGXurhn7pMTN6w');
+            }
         };
         document.head.appendChild(s);
     },
