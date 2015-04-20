@@ -7,6 +7,7 @@ var campaigns = require('../collection/campaigns');
 
 var config = require('../../config');
 var stripe = require('stripe')(config.stripe);
+var email = require('../lib/email');
 
 exports.register = function (server, options, next) {
     options = Hoek.applyToDefaults({ basePath: ''}, options);
@@ -23,7 +24,8 @@ exports.register = function (server, options, next) {
                     campaign_name: Joi.string().required(),
                     twitter_username: Joi.string().required(),
                     email: Joi.string().required(),
-                    token: Joi.string().required()
+                    token: Joi.string().required(),
+                    coupon: Joi.any().optional()
                 }
             },
             handler: exports.handler
@@ -38,7 +40,7 @@ exports.handler = function(request, reply) {
         .then(function(customer) {
             console.log("Adding customer to db");
             return campaigns.add({
-                name: request.payload.campaign_name.replace(/[^\w\s\d]/gi, ''),
+                name: formatCampaignName(request.payload.campaign_name),
                 created_at: new Date(),
                 updated_at: new Date(),
                 last_sent_msg: null,
@@ -47,14 +49,51 @@ exports.handler = function(request, reply) {
                 coupon: request.payload.coupon || null
             });
         })
+        .then(exports.sendEmail.bind(exports, request))
         .then(function() {
             console.log("Campaign Creation SUCCESS", request.payload);
             reply({msg: 'Campaign Creation Success', payload: request.payload});
         })
         .catch(function(err) {
             console.warn("Campaign Creation FAILURE", request.payload, err);
-            reply({err: err, msg: "Campaign Creation FAILURE"}).status(500);
+            reply({err: err, msg: "Campaign Creation FAILURE"}).code(500);
         });
+};
+
+exports.sendEmail = function(request) {
+    var campaignName = formatCampaignName(request.payload.campaign_name);
+    var campaignUrl = 'http://doyouloveus.com/love/' + encodeURIComponent(campaignName);
+    var msg = {
+        from: 'Kumar <kumar@doyouloveus.com>',
+        to: request.payload.email,
+        subject: "Welcome to doyouloveus.com",
+        text: [
+            'Hi ' + request.payload.first_name +',',
+            '',
+            'Some quick info and bam, you\'ll be on your way to growth.',
+            'Employees and supporters of a company and/or nonprofit have 10X',
+            'the social reach of the companies and organizations that they love.',
+            '',
+            'We help you tap into that power. Simply follow these steps and',
+            'watch as your monthly content and PR pushes reach a higher share',
+            'count and exposure.',
+            '',
+            '1) Send out your campaign link to your lovers: ' + campaignUrl,
+            '2) Watch as you gain soo many lovers',
+            '3) Go to: http://doyouloveus.com/campaign/' + encodeURIComponent(campaignName) + ' to syndicate tweets',
+            '   Make sure its a good tweet as you only get 1 tweet / month',
+            '',
+            '',
+            'Feel free to ping any of us at support@doyouloveus.com or call us directly.',
+            '',
+            'Sincerely,',
+            'Kumar, Brian, Colin',
+            'support@doyouloveus.com',
+            'Ph:832-795-9744'
+        ].join('\n')
+    };
+
+    return email.send(msg);
 };
 
 exports.addStripeCustomer = function (request) {
@@ -86,3 +125,8 @@ exports.register.attributes = {
     name: 'payments',
     version: '1.0.0'
 };
+
+
+function formatCampaignName(name) {
+    return name.replace(/[^\w\s\d]/gi, '');
+}
