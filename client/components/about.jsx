@@ -5,13 +5,14 @@ var React = require('react');
 module.exports = React.createClass({
     renderStaff: function(staff) {
         return (
-            <div className="col-md-3 panel panel-default">
+            <div className="col-sm-3 panel panel-default">
                 <div className="panel-body">
                     <div className="author-img" style={{
                         width: '100%',
                         backgroundImage: 'url(' + staff.img + ')',
                         backgroundSize: 'cover',
-                        backgroundPosition: 'center'
+                        backgroundPosition: 'center',
+                        maxWidth: '50vw'
                     }} />
                     <h4>{staff.name}</h4>
                     <h5>{staff.title}</h5>
@@ -29,6 +30,7 @@ module.exports = React.createClass({
     },
     componentDidMount: function() {
         this.fixImgWidth();
+        window.addEventListener('resize', this.fixImgWidth.bind(this));
     },
     render: function() {
         return (
@@ -41,17 +43,17 @@ module.exports = React.createClass({
                     <h3>Staff</h3>
                     {this.renderStaff({
                         name: "Colin Bookman",
-                        title: "Lead Engineer",
+                        title: "Co Founder",
                         img: "/img/staff/colin.bookman.jpg"
                     })}
                     {this.renderStaff({
                         name: "Brian Clark",
-                        title: "CTO",
+                        title: "Co Founder",
                         img: "/img/staff/brian.clark.jpg"
                     })}
                     {this.renderStaff({
                         name: "Kumarovski Thangudic",
-                        title: "Lead Sales",
+                        title: "Co Founder",
                         img: "/img/staff/kumarovski.thangudic.jpg"
                     })}
                 </div>
