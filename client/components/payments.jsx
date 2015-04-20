@@ -109,7 +109,7 @@ module.exports = React.createClass({
         var output = [];
         for(var i = 0, l = months.length; i < l; ++i) {
             var monthName = months[i];
-            var monthDigit = '' + i;
+            var monthDigit = '' + (i + 1);
             if(i < 10) {
                 monthDigit = '0' + monthDigit;
             }
