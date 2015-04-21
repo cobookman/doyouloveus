@@ -87,7 +87,18 @@ module.exports = React.createClass({
                             <h3>Enterprise</h3>
                             <h1>Contact Us</h1>
                             <h3>75+ supporters</h3>
-                            <a href='mailto:support@doyouloveus.com?subject=Enterprise Plan'>Sign Up</a>
+                            <a href='mailto:support@doyouloveus.com?subject=Enterprise Plan'>
+                                Sign Up
+                                <span style={{
+                                    background: 'url(/img/icons/twitter-bird.png)',
+                                    width: '26px',
+                                    height: '20px',
+                                    display: 'inline-block',
+                                    backgroundRepeat: 'no-repeat',
+                                    marginLeft: '9px',
+                                    marginRight: '-18px'
+                                }} />
+                            </a>
                         </div>
                     </div>
                 </div>
