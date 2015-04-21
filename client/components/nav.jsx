@@ -1,9 +1,17 @@
 "use strict";
 var React = require('react');
 var Router = require('react-router');
+var forceAuth = require('../utils/forceAuth');
 var Link = Router.Link;
 
+
 module.exports = React.createClass({
+    login: function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        forceAuth();
+    },
     renderUserDetails: function() {
         if(window.user && window.user.twitter_username) {
             return [
@@ -17,7 +25,7 @@ module.exports = React.createClass({
                                 backgroundSize: '18px'
                             }}>
                                 @{window.user.twitter_username}
-                            </span>
+                    t d        </span>
                         </Link>
                     </li>
                 ),
@@ -30,7 +38,7 @@ module.exports = React.createClass({
         }
         else {
             return (
-                <li><a href="/twitter/login">Login</a></li>
+                <li><a onClick={this.login} href="/twitter/login">Login</a></li>
             );
         }
     },

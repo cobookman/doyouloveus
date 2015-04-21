@@ -17,7 +17,18 @@ exports.resolved = function (options, server, next) {
             auth: options.auth,
             handler: function (request, reply) {
                 request.auth.session.clear();
-                reply("logged out");
+                reply([
+                    "<!DOCTYPE html>",
+                    "<html>",
+                        "<head>",
+                            "<meta http-equiv=\"refresh\" content=\"1; url=/\">",
+                        "</head>",
+                        "<body>",
+                            "logged out. Redirecting back to home page...",
+                            "<script>setTimeout(function() { window.location = '/';}, 2000);</script>",
+                        "</body>",
+                    "</html>"
+                ].join('\n'));
             }
         }
     });
