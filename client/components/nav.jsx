@@ -25,7 +25,7 @@ module.exports = React.createClass({
                                 backgroundSize: '18px'
                             }}>
                                 @{window.user.twitter_username}
-                    t d        </span>
+                            </span>
                         </Link>
                     </li>
                 ),
