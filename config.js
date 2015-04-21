@@ -18,6 +18,9 @@ var config = {
             api_key: 'key-ad4db81c0a6ab3f99d617c17937fa173',
             public_api_key: 'pubkey-c2228930a0e12d8d8894e2d75c16f0a8',
             domain: 'sandboxf2355cabc9c64895b6bd0c8b5aa22185.mailgun.org'
+        },
+        stacklead: {
+            api_key: '53dc0886cb'
         }
     },
     production: {
@@ -37,6 +40,9 @@ var config = {
             api_key: 'key-ad4db81c0a6ab3f99d617c17937fa173',
             public_api_key: 'pubkey-c2228930a0e12d8d8894e2d75c16f0a8',
             domain: 'doyouloveus.com'
+        },
+        stacklead: {
+            api_key: '53dc0886cb'
         }
     }
 };

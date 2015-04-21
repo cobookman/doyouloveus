@@ -8,6 +8,7 @@ var campaigns = require('../collection/campaigns');
 var config = require('../../config');
 var stripe = require('stripe')(config.stripe);
 var email = require('../lib/email');
+var stacklead = require('../lib/stacklead');
 
 exports.register = function (server, options, next) {
     options = Hoek.applyToDefaults({ basePath: ''}, options);
@@ -55,6 +56,11 @@ exports.handler = function(request, reply) {
         .then(function() {
             console.log("Campaign Creation SUCCESS", request.payload);
             reply({msg: 'Campaign Creation Success', payload: request.payload});
+
+            // send stacklead
+            stacklead(request.payload.email)
+                .then(function() { console.log("Sent stacklead on", request.payload.email); })
+                .catch(function() { console.log("Failed to send stacklead on", request.payload.email); });
         })
         .catch(function(err) {
             console.warn("Campaign Creation FAILURE", request.payload, err);
