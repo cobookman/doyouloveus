@@ -28,7 +28,18 @@ module.exports = React.createClass({
                 <h3>{this.props.name}</h3>
                 {this.renderPrice()}
                 <h3>{this.props.tweets} supporters</h3>
-                <a href={"/payments/" + this.props.name}>Sign Up</a>
+                <a href={"/payments/" + this.props.name}>
+                    Sign Up
+                    <span style={{
+                        background: 'url(/img/icons/twitter-bird.png)',
+                        width: '26px',
+                        height: '20px',
+                        display: 'inline-block',
+                        backgroundRepeat: 'no-repeat',
+                        marginLeft: '9px',
+                        marginRight: '-18px'
+                    }} />
+                </a>
             </div>
         );
     }
