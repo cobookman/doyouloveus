@@ -7,6 +7,7 @@ var Router = require('react-router');
 var Plan = require('./plan');
 var plans = require('../plans');
 var forceAuth = require('../utils/forceAuth');
+var coupons = require('../coupons');
 
 module.exports = React.createClass({
     mixins: [ Router.State ],
@@ -85,12 +86,12 @@ module.exports = React.createClass({
     },
     handleChange: function(field, e) {
         var change = {};
-        change[field] = e.target.value;
+        change[field] = e.target.value.trim();
         this.setState(change);
     },
     renderFormComponent: function(data) {
         return (
-            <div className="form-group">
+            <div className="form-group" style={data.style || {}}>
                 <label htmlFor={data.id} className="col-sm-2 control-label">{data.label}</label>
                 <div className="col-sm-10">
                     <input
@@ -128,11 +129,22 @@ module.exports = React.createClass({
     },
     renderCoupon: function() {
         if(this.state.showCouponInput) {
+            var style = {};
+            if(this.state.coupon && this.state.coupon.length) {
+                style.color = '#DA0101';
+            }
+            
+            var label = 'Coupon Code';
+            if(this.state.coupon && coupons[this.state.coupon]) {
+                style.color = '#007E00';
+                label += '\n' + ((1 - coupons[this.state.coupon]) * 100) + '% off';
+            }
             return this.renderFormComponent({
                 type: 'text',
                 id: 'coupon',
-                label: 'Coupon Code',
-                stripe: 'coupon'
+                label: label,
+                stripe: 'coupon',
+                style: style
             });
         }
         else {
@@ -213,6 +225,7 @@ module.exports = React.createClass({
                     <Plan
                         name={planName}
                         price={planDetails.price}
+                        coupon={this.state.coupon}
                         tweets={planDetails.tweets} >
                     </Plan>
                 </div>

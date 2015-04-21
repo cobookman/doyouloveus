@@ -6,7 +6,7 @@ module.exports = function() {
             'onAuthCallback', window.location.pathname
         );
         window.location = '/twitter/login';
-        
+
         throw new Error("Not logged in...logging in");
     }
 };
