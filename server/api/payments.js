@@ -22,6 +22,7 @@ exports.register = function (server, options, next) {
                     first_name: Joi.string().required(),
                     last_name: Joi.string().required(),
                     campaign_name: Joi.string().required(),
+                    campaign_description: Joi.string().required(),
                     twitter_username: Joi.string().required(),
                     email: Joi.string().required(),
                     token: Joi.string().required(),
@@ -40,7 +41,8 @@ exports.handler = function(request, reply) {
         .then(function(customer) {
             console.log("Adding customer to db");
             return campaigns.add({
-                name: formatCampaignName(request.payload.campaign_name),
+                name: formatCampaignName(request.payload.campaign_name).trim(),
+                description: request.payload.campaign_description.trim(),
                 created_at: new Date(),
                 updated_at: new Date(),
                 last_sent_msg: null,

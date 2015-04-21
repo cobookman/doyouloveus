@@ -2,9 +2,27 @@
 
 var React = require('react');
 var Router = require('react-router');
+var $ = require('jquery');
 
 module.exports = React.createClass({
     mixins: [ Router.State ],
+    getCampaignInfo: function() {
+        $.get('/api/campaign/' + window.encodeURIComponent(this.state.name))
+            .then(function(data) {
+                this.setState({
+                    owner: data.owner,
+                    description: data.description
+                });
+            }.bind(this))
+            .fail(function() {
+                this.setState({
+                    error: true
+                });
+            }.bind(this));
+    },
+    componentDidMount: function() {
+        this.getCampaignInfo();
+    },
     getInitialState: function() {
         var params = this.getParams();
         return {
@@ -96,6 +114,7 @@ module.exports = React.createClass({
                     <b style={{color: '#111'}}>{this.state.name}</b>
                     ?
                 </h2>
+                <p style={{whiteSpace: 'pre-line', fontSize: '1.15em', textAlign: 'justify'}}>{this.state.description}</p>
                 <div className="row" style={{marginTop: '25px'}}>
                     {this.renderOption({
                         value: 1,

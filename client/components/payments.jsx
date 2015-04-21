@@ -16,7 +16,13 @@ module.exports = React.createClass({
             pendingAuth: false,
             error: null,
             addedCustomer: false,
-            showCouponInput: false
+            showCouponInput: false,
+            campaign_description: [
+                "Hey Supporters,",
+                "We need your support. Every month we do one new PR, press, or blog posts By opting in with your twitter account, you're supporting us. We'll automagically push the post to your feed once a month.",
+                "All the posts are screened by DoYouLoveUs.com. Instead of having to bug you every month to share something and you having to login to twitter and copy-paste the stuff, just click the button below and it will all happen automagically.",
+                "You have the option of choosing 1,3, or 12 months of support. The more the merrier!"
+            ].join('\n')
         };
     },
     componentWillMount: function() {
@@ -72,6 +78,7 @@ module.exports = React.createClass({
             first_name: name.first_name,
             last_name: name.last_name,
             campaign_name: this.state.campaign_name,
+            campaign_description: this.state.campaign_description,
             twitter_username: window.user.twitter_username,
             email: this.state.email,
             token: response.id,
@@ -133,7 +140,7 @@ module.exports = React.createClass({
             if(this.state.coupon && this.state.coupon.length) {
                 style.color = '#DA0101';
             }
-            
+
             var label = 'Coupon Code';
             if(this.state.coupon && coupons[this.state.coupon]) {
                 style.color = '#007E00';
@@ -188,6 +195,17 @@ module.exports = React.createClass({
                         label: 'Campaign Name',
                         stripe: null
                     })}
+                    <div className="form-group">
+                        <label htmlFor='campaign_description' className="col-sm-2 control-label">Campaign Description</label>
+                        <div className="col-sm-10">
+                            <textarea
+                                className="form-control"
+                                id="campaign_description"
+                                value={this.state.campaign_description}
+                                rows="8"
+                                onChange={this.handleChange.bind(this, "campaign_description")}/>
+                        </div>
+                    </div>
                     {this.renderFormComponent({
                         type: 'text',
                         id: 'card-number',

@@ -38,6 +38,7 @@ var manifest = {
         './server/api/queueCampaignMsgs': { basePath: '/api' },
 
         './server/api/payments': { basePath: '/api' },
+        './server/api/campaign': { basePath: '/api' },
 
         './server/tasks/sendTweets': {}
     }
