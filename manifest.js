@@ -27,6 +27,7 @@ var manifest = {
     plugins: {
         'hapi-auth-cookie': {},
         'bell': {},
+        './server/lib/good-console': {},
         './server/lib/auth': {},
 
         './server/twitter/login': { basePath: '/twitter' },
