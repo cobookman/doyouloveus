@@ -12,6 +12,7 @@ var coupons = require('../coupons');
 module.exports = React.createClass({
     mixins: [ Router.State ],
     getInitialState: function() {
+
         return {
             disableForm: false,
             pendingAuth: false,
@@ -23,7 +24,8 @@ module.exports = React.createClass({
                 "We need your support. Every month we do one new PR, press, or blog posts By opting in with your twitter account, you're supporting us. We'll automagically push the post to your feed once a month.",
                 "All the posts are screened by DoYouLoveUs.com. Instead of having to bug you every month to share something and you having to login to twitter and copy-paste the stuff, just click the button below and it will all happen automagically.",
                 "You have the option of choosing 1,3, or 12 months of support. The more the merrier!"
-            ].join('\n')
+            ].join('\n'),
+            plan: this.getParams().plan
         };
     },
     componentWillMount: function() {
@@ -88,7 +90,8 @@ module.exports = React.createClass({
             twitter_username: window.user.twitter_username,
             email: this.state.email,
             token: response.id,
-            coupon: this.state.coupon
+            coupon: this.state.coupon,
+            plan: this.state.plan
         })
         .then(function() {
             this.setState({error: false, addedCustomer: true, disableForm: false });
@@ -186,8 +189,8 @@ module.exports = React.createClass({
                 <div className="alert alert-danger">{this.state.error}</div>
             );
         }
-        var planName = this.getParams().plan;
-        var planDetails = plans[planName];
+
+        var planDetails = plans[this.state.plan];
         return (
             <div className="row">
                 <form id="payment-form" className="form-horizontal col-md-8" onSubmit={this.onSubmit}>
@@ -257,7 +260,7 @@ module.exports = React.createClass({
                 <div className="col-md-3">
                     <h3>Plan Overview</h3>
                     <Plan
-                        name={planName}
+                        name={this.state.plan}
                         price={planDetails.price}
                         coupon={this.state.coupon}
                         tweets={planDetails.tweets}

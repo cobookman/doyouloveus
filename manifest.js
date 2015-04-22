@@ -40,6 +40,7 @@ var manifest = {
 
         './server/api/payments': { basePath: '/api' },
         './server/api/campaign': { basePath: '/api' },
+        './server/api/account/user': { basePath: '/api' },
 
         './server/tasks/sendTweets': {}
     }

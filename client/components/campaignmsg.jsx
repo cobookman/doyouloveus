@@ -4,6 +4,7 @@ var React = require('react');
 var Router = require('react-router');
 var $ = require('jquery');
 var forceAuth = require('../utils/forceAuth');
+var formatDate = require('../utils/formatDate');
 
 module.exports = React.createClass({
     mixins: [ Router.State ],
@@ -16,6 +17,15 @@ module.exports = React.createClass({
     },
     componentWillMount: function() {
         forceAuth();
+    },
+    componentDidMount: function() {
+        $.get('/api/campaign/' + encodeURIComponent(this.state.campaign))
+            .then(function(data) {
+                this.setState({info: data});
+            }.bind(this))
+            .fail(function() {
+                console.log(new Error("Failed to grab campaign information"));
+            });
     },
     updateMessage: function(e) {
         this.setState({
@@ -36,6 +46,28 @@ module.exports = React.createClass({
                 alert(err.message);
             });
     },
+    renderInfo: function() {
+        if(!this.state.info) {
+            return null;
+        }
+
+        return (
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <h3 className="panel-title">
+                        Information on campaign `{this.state.info.campaign.name}`
+                    </h3>
+                </div>
+                <div className="panel-body">
+                    <ul>
+                        <li>Subscribers: {this.state.info.subscriptions.length}</li>
+                        <li>Last Message Sent: {formatDate(new Date(this.state.info.campaign.last_sent_msg))}</li>
+                        <li>Plan: {this.state.info.campaign.plan}</li>
+                    </ul>
+                </div>
+            </div>
+        );
+    },
     render: function() {
         return (
             <div>
@@ -43,15 +75,16 @@ module.exports = React.createClass({
                     <h2>
                         Send out a campaign message
                     </h2>
-                    <p>
-                        No @ or # symbols are allowed in your message.  This is to be a good
-                        twitter citizen, and prevent spam.
-                    </p>
+                    {this.renderInfo()}
                 </div>
                 <div className="row">
                     <form>
                         <div className="form-group">
-                            <label htmlFor="message">Message</label>
+                            <label htmlFor="message" style={{fontSize: '1.5em'}}>Message</label>
+                            <p>
+                                No @ or # symbols are allowed in your message.  This is to be a good
+                                twitter citizen, and prevent spam.
+                            </p>
                             <textarea
                                 id="message"
                                 rows="5"

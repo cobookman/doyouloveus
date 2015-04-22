@@ -2,6 +2,7 @@
 
 var Hoek = require('hoek');
 var campaigns = require('../collection/campaigns');
+var subscriptions = require('../collection/campaignSubscriptions');
 
 exports.register = function (server, options, next) {
     options = Hoek.applyToDefaults({ basePath: ''}, options);
@@ -19,13 +20,22 @@ exports.register = function (server, options, next) {
 };
 
 exports.handler = function(request, reply) {
+    var output = {};
     campaigns.get({name: request.params.name})
-        .then(function(data) {
-            reply({
-                name: data.name,
-                owner: data.twitter_username,
-                description: data.description
-            });
+        .then(function(campaign) {
+            output.campaign = {
+                name: campaign.name,
+                owner: campaign.twitter_username,
+                description: campaign.description,
+                plan: campaign.plan,
+                last_sent_msg: campaign.last_sent_msg
+            };
+
+            return subscriptions.getAll({campaign: request.params.name});
+        })
+        .then(function(people) {
+            output.subscriptions = people;
+            reply(output);
         })
         .catch(function(err) {
             reply({
@@ -39,8 +49,3 @@ exports.register.attributes = {
     name: 'campaigns',
     version: '1.0.0'
 };
-
-
-function formatCampaignName(name) {
-    return name.replace(/[^\w\s\d]/gi, '');
-}

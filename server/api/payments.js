@@ -27,7 +27,8 @@ exports.register = function (server, options, next) {
                     twitter_username: Joi.string().required(),
                     email: Joi.string().required(),
                     token: Joi.string().required(),
-                    coupon: Joi.any().optional()
+                    coupon: Joi.any().optional(),
+                    plan: Joi.string().required()
                 }
             },
             handler: exports.handler
@@ -49,7 +50,8 @@ exports.handler = function(request, reply) {
                 last_sent_msg: null,
                 twitter_username: request.payload.twitter_username,
                 stripe_customer_id: customer.id,
-                coupon: request.payload.coupon || null
+                coupon: request.payload.coupon || null,
+                plan: request.payload.plan
             });
         })
         .then(exports.sendEmail.bind(exports, request))

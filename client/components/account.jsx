@@ -3,6 +3,7 @@
 var React = require('react');
 var $ = require('jquery');
 var forceAuth = require('../utils/forceAuth');
+var formatDate = require('../utils/formatDate');
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -19,20 +20,14 @@ module.exports = React.createClass({
                 this.setState({error: "Failed to grab user information :("});
             }.bind(this));
     },
-    formatDate: function(d) {
-        var year = d.getFullYear();
-        var date = d.getDate().length === 2 ? d.getDate() : '0' + d.getDate();
-        var month = d.getMonth().length === 2 ? d.getMonth() : '0' + d.getMonth();
-        return month + '/' + date + '/' + year;
-    },
     renderUserInfo: function() {
         var campaigns = this.state.user.campaigns.map(function(campaign) {
             return (
                 <tr>
                     <td>{campaign.name}</td>
                     <td>{campaign.description}</td>
-                    <td>{this.formatDate(new Date(campaign.last_sent_msg))}</td>
-                    <td>{this.formatDate(new Date(campaign.created_at))}</td>
+                    <td>{formatDate(new Date(campaign.last_sent_msg))}</td>
+                    <td>{formatDate(new Date(campaign.created_at))}</td>
                 </tr>
             );
         }.bind(this));
@@ -41,8 +36,8 @@ module.exports = React.createClass({
             return (
                 <tr>
                     <td>{subscription.campaign}</td>
-                    <td>{this.formatDate(new Date(subscription.created_at))}</td>
-                    <td>{this.formatDate(new Date(subscription.expires_at))}</td>
+                    <td>{formatDate(new Date(subscription.created_at))}</td>
+                    <td>{formatDate(new Date(subscription.expires_at))}</td>
                 </tr>
             );
         }.bind(this));
