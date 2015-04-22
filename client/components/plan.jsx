@@ -22,12 +22,12 @@ module.exports = React.createClass({
             );
         }
     },
-    render: function() {
-        return (
-            <div className="pricingBox">
-                <h3>{this.props.name}</h3>
-                {this.renderPrice()}
-                <h3>{this.props.tweets} supporters</h3>
+    renderSignupButtom: function() {
+        if(this.props.hideButton) {
+            return null;
+        }
+        else {
+            return (
                 <a href={"/payments/" + this.props.name}>
                     Sign Up
                     <span style={{
@@ -40,6 +40,16 @@ module.exports = React.createClass({
                         marginRight: '-18px'
                     }} />
                 </a>
+            );
+        }
+    },
+    render: function() {
+        return (
+            <div className="pricingBox">
+                <h3>{this.props.name}</h3>
+                {this.renderPrice()}
+                <h3>{this.props.tweets} supporters</h3>
+                {this.renderSignupButtom()}
             </div>
         );
     }

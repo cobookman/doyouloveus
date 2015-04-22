@@ -93,7 +93,10 @@ module.exports = React.createClass({
     },
     handleChange: function(field, e) {
         var change = {};
-        change[field] = e.target.value.trim();
+        change[field] = e.target.value;
+        if(field === 'coupon') {
+            change[field] = change[field].trim();
+        }
         this.setState(change);
     },
     renderFormComponent: function(data) {
@@ -244,7 +247,8 @@ module.exports = React.createClass({
                         name={planName}
                         price={planDetails.price}
                         coupon={this.state.coupon}
-                        tweets={planDetails.tweets} >
+                        tweets={planDetails.tweets}
+                        hideButton={true} >
                     </Plan>
                 </div>
             </div>
