@@ -52,7 +52,7 @@ exports.handler = function(request, reply) {
             throw new Error("you sent a message this month already");
         }
         else {
-            return exports.queueMsgs(campaign, request.payload.message);
+            return exports.queueMsgs(campaign, request.payload.message.replace(/\#|\@|&#35;|&#64;/g, ''));
         }
     })
     .then(function(queued) {
@@ -72,7 +72,6 @@ exports.handler = function(request, reply) {
         return reply({status: 'failed to send out campaign', message: err.message}).code(500);
     });
 };
-
 
 exports.queueMsgs = function(campaign, text) {
     var promise = new Promise(function(resolve, reject) {

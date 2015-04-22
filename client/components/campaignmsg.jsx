@@ -19,7 +19,7 @@ module.exports = React.createClass({
     },
     updateMessage: function(e) {
         this.setState({
-            message: e.target.value
+            message: e.target.value.replace(/\#|\@|&#35;|&#64;/g, '')
         });
     },
     sendMsg: function(e) {
@@ -38,10 +38,16 @@ module.exports = React.createClass({
     },
     render: function() {
         return (
-            <div className="container">
-                <h2>
-                    Send out a campaign message
-                </h2>
+            <div>
+                <div className="row">
+                    <h2>
+                        Send out a campaign message
+                    </h2>
+                    <p>
+                        No @ or # symbols are allowed in your message.  This is to be a good
+                        twitter citizen, and prevent spam.
+                    </p>
+                </div>
                 <div className="row">
                     <form>
                         <div className="form-group">
