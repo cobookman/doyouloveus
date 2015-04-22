@@ -4,6 +4,8 @@ var React = require('react');
 var $ = require('jquery');
 var forceAuth = require('../utils/forceAuth');
 var formatDate = require('../utils/formatDate');
+var Router = require('react-router');
+var Link = Router.Link;
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -28,6 +30,14 @@ module.exports = React.createClass({
                     <td>{campaign.description}</td>
                     <td>{formatDate(new Date(campaign.last_sent_msg))}</td>
                     <td>{formatDate(new Date(campaign.created_at))}</td>
+                    <td style={{verticalAlign: 'middle'}}>
+                        <Link
+                            className="btn btn-primary"
+                            to="campaignmsg"
+                            params={{name: campaign.name}}>
+                                Syndicate Messages
+                        </Link>
+                    </td>
                 </tr>
             );
         }.bind(this));
@@ -38,6 +48,15 @@ module.exports = React.createClass({
                     <td>{subscription.campaign}</td>
                     <td>{formatDate(new Date(subscription.created_at))}</td>
                     <td>{formatDate(new Date(subscription.expires_at))}</td>
+                    <td style={{verticalAlign: 'middle'}}>
+                        <Link
+                            className="btn btn-primary"
+                            to="leaveCampaign"
+                            params={{campaign: subscription.campaign}}>
+
+                                Leave Campaign
+                        </Link>
+                    </td>
                 </tr>
             );
         }.bind(this));
@@ -53,6 +72,7 @@ module.exports = React.createClass({
                             <th>Description</th>
                             <th>Last Sent Msg</th>
                             <th>Creation Date</th>
+                            <th></th>
                         </thead>
                         <tbody>
                             {campaigns}

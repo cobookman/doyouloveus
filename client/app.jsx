@@ -16,6 +16,7 @@ var Subscribed = require('./components/subscribed');
 var Campaignmsg = require('./components/campaignmsg');
 var Payments = require('./components/payments');
 var Account = require('./components/account');
+var LeaveCampaign = require('./components/leaveCampaign');
 
 // grab user information into global under window
 window.user = JSON.parse(document.querySelector('[data-hook=user-information]').innerHTML);
@@ -49,6 +50,7 @@ var routes = (
         <Route name="campaignmsg" path="campaign/:name" handler={Campaignmsg} />
         <Route name="payments" path="payments/:plan" handler={Payments} />
         <Route name="account" path="account/:username" handler={Account} />
+        <Route name="leaveCampaign" path="leave/:campaign" handler={LeaveCampaign} />
 
         <NotFoundRoute handler={Error404}/>
         <DefaultRoute name="landing" handler={Landing} />

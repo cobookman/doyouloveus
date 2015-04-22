@@ -2,9 +2,9 @@
 
 var React = require('react');
 var Router = require('react-router');
-var Link = Router.Link;
 var Plan = require('./plan');
 var plans = require('../plans');
+
 module.exports = React.createClass({
     renderPlans: function() {
         var output = [];

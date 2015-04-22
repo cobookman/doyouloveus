@@ -1,8 +1,8 @@
 "use strict";
 
 var Hoek = require('hoek');
-var campaigns = require('../collection/campaigns');
-var subscriptions = require('../collection/campaignSubscriptions');
+var campaigns = require('../../collection/campaigns');
+var subscriptions = require('../../collection/campaignSubscriptions');
 
 exports.register = function (server, options, next) {
     options = Hoek.applyToDefaults({ basePath: ''}, options);
@@ -46,6 +46,6 @@ exports.handler = function(request, reply) {
 };
 
 exports.register.attributes = {
-    name: 'campaigns',
+    name: 'campaign/get',
     version: '1.0.0'
 };

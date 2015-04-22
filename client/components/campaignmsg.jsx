@@ -73,7 +73,7 @@ module.exports = React.createClass({
             <div>
                 <div className="row">
                     <h2>
-                        Send out a campaign message
+                        Send out a campaign message to <span style={{fontStyle: 'italic', textDecoration: 'underline'}}>{this.state.campaign}</span> subscribers
                     </h2>
                     {this.renderInfo()}
                 </div>
