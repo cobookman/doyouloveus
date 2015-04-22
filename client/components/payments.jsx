@@ -13,6 +13,7 @@ module.exports = React.createClass({
     mixins: [ Router.State ],
     getInitialState: function() {
         return {
+            disableForm: false,
             pendingAuth: false,
             error: null,
             addedCustomer: false,
@@ -45,9 +46,14 @@ module.exports = React.createClass({
     onSubmit: function(e) {
         e.stopPropagation();
         e.preventDefault();
+
+        if(this.state.disableForm) {
+            return; // disregard multiple form submissions until server gets back to us
+        }
+
         var $form = $(e.target);
         Stripe.card.createToken($form, this.onStripeResponse);
-        this.setState({pendingAuth: true, error: null });
+        this.setState({pendingAuth: true, error: null, disableForm: true });
     },
     getName: function() {
         var parts = window.user.displayName.split(' ');
@@ -68,7 +74,7 @@ module.exports = React.createClass({
         this.setState({pendingAuth: false});
 
         if(response.error) {
-            this.setState({error: response.error.message});
+            this.setState({error: response.error.message, disableForm: false});
             return;
         }
 
@@ -85,10 +91,10 @@ module.exports = React.createClass({
             coupon: this.state.coupon
         })
         .then(function() {
-            this.setState({error: false, addedCustomer: true });
+            this.setState({error: false, addedCustomer: true, disableForm: false });
         }.bind(this))
         .fail(function(err) {
-            this.setState({error: err});
+            this.setState({error: err, disableForm: false});
         }.bind(this));
     },
     handleChange: function(field, e) {
@@ -110,7 +116,8 @@ module.exports = React.createClass({
                         id={data.id}
                         placeholder={data.placeholder}
                         data-stripe={data.stripe}
-                        onChange={this.handleChange.bind(this, data.id)}/>
+                        onChange={this.handleChange.bind(this, data.id)}
+                        disable={this.state.disableForm} />
                 </div>
             </div>
         );
@@ -206,7 +213,8 @@ module.exports = React.createClass({
                                 id="campaign_description"
                                 value={this.state.campaign_description}
                                 rows="8"
-                                onChange={this.handleChange.bind(this, "campaign_description")}/>
+                                onChange={this.handleChange.bind(this, "campaign_description")}
+                                disable={this.state.disableForm} />
                         </div>
                     </div>
                     {this.renderFormComponent({
@@ -225,11 +233,16 @@ module.exports = React.createClass({
                     <div className="form-group">
                         <label htmlFor="expiration" className="col-sm-2 control-label">Expiration (MM/YYYY)</label>
                         <div className="col-sm-10">
-                            <select data-stripe="exp-month">
+                            <select data-stripe="exp-month" disable={this.state.disableForm} >
                                 {this.renderMonthDropdownOptions()}
                             </select>
                             <span> / </span>
-                            <input type="text" size="4" maxLength="4" data-stripe="exp-year"/>
+                            <input
+                                type="text"
+                                size="4"
+                                maxLength="4"
+                                data-stripe="exp-year"
+                                disable={this.state.disableForm} />
                         </div>
                     </div>
 
@@ -259,13 +272,23 @@ module.exports = React.createClass({
             return this.renderForm();
         }
         else {
-            var url = 'http://' + window.location.host + '/love/' + window.encodeURIComponent(this.state.campaign_name);
+            var loveUrl = 'http://' + window.location.host + '/love/' + window.encodeURIComponent(this.state.campaign_name);
+            var messageUrl = 'http://' + window.location.host + '/campaign/' + window.encodeURIComponent(this.state.campaign_name);
             return (
-                <div>
+                <div className="row" style={{fontSize: '1.15em'}}>
                     <h2>Thank you, you have successfully added your campaign</h2>
                     <p>
-                        Send the following link to your subscribers:
-                        <a href={url}>{url}</a>
+                        Simply follow these steps and
+                        watch as your monthly content and PR pushes reach a higher share
+                        count and exposure.
+                    </p>
+                    <ol>
+                        <li>Send out your campaign link to your lovers: <a href={loveUrl}>{loveUrl}</a></li>
+                        <li>Watch as you gain soo many lovers</li>
+                        <li>Go to: <a href={messageUrl}>{messageUrl}</a> to syndicate tweets. Make sure its a good tweet as you only can syndicate 1 tweet / month</li>
+                    </ol>
+                    <p>
+                        Feel free to ping any of us at support@doyouloveus.com or call us directly at (832) - 795-9744
                     </p>
                 </div>
             );
