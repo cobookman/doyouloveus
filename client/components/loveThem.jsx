@@ -10,8 +10,8 @@ module.exports = React.createClass({
         $.get('/api/campaign/' + window.encodeURIComponent(this.state.name))
             .then(function(data) {
                 this.setState({
-                    owner: data.owner,
-                    description: data.description
+                    owner: data.campaign.owner,
+                    description: data.campaign.description
                 });
             }.bind(this))
             .fail(function() {
