@@ -6,19 +6,18 @@ module.exports = React.createClass({
     renderPrice: function() {
         if(this.props.coupon && coupons[this.props.coupon]) {
             var discountPrice = Math.round(this.props.price * coupons[this.props.coupon] * 100) / 100;
-
             return [
                 (
-                    <h2 style={{color: '#DA0101'}}><strike>${this.props.price}</strike></h2>
+                    <h2 style={{color: '#DA0101'}}><strike>${this.props.price} / month</strike></h2>
                 ),
                 (
-                    <h1>${discountPrice}</h1>
+                    <h1>${discountPrice} / month</h1>
                 )
             ];
         }
         else {
             return (
-                <h1>${this.props.price}</h1>
+                <h1>${this.props.price} / month</h1>
             );
         }
     },
