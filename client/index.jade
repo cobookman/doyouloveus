@@ -5,10 +5,10 @@ html(lang="en")
         link(rel="stylesheet", type="text/css", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
         link(rel="stylesheet", type="text/css", href="/css/styles.css")
         meta(name="google-site-verification", content="et15Ojdjkgt6gNzkd3XIG6W9_tpZ_GwwfCOWv7E9EZk")
-        script(type="application/javascript", src="/js/vendor.js")
-        script(type="application/javascript", src="/js/app.js")
         script(type='application/json', data-hook="user-information") !{JSON.stringify(userInfo)}
     body
         main#main
+        script(type="application/javascript", src="/js/vendor.js")
+        script(type="application/javascript", src="/js/app.js")
         script.
             require('app');
