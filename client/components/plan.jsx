@@ -1,6 +1,8 @@
 'use strict';
 var React = require('react');
 var coupons = require('../coupons');
+var Router = require('react-router');
+var Link = Router.Link;
 
 module.exports = React.createClass({
     renderPrice: function() {
@@ -27,7 +29,7 @@ module.exports = React.createClass({
         }
         else {
             return (
-                <a href={"/payments/" + this.props.name}>
+                <Link to="payments" params={{plan: this.props.name}}>
                     Sign Up
                     <span style={{
                         background: 'url(/img/icons/twitter-bird.png)',
@@ -38,7 +40,7 @@ module.exports = React.createClass({
                         marginLeft: '9px',
                         marginRight: '-18px'
                     }} />
-                </a>
+                </Link>
             );
         }
     },
