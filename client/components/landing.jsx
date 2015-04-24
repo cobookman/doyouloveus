@@ -1,7 +1,6 @@
 "use strict";
 
 var React = require('react');
-var Router = require('react-router');
 var Plan = require('./plan');
 var plans = require('../plans');
 
@@ -31,7 +30,8 @@ module.exports = React.createClass({
                     <div className="container row">
                         <div className="col-md-7">
                             <h2 className="heading">
-                                Gather supporters and broadcast announcements on their social networks automagically
+                                Get your die hard supporters tweeting about you once a month!
+                                Automagically
                             </h2>
                             <p>
                                 <a href="#plans" className="btn btn-primary btn-lg">
@@ -39,17 +39,32 @@ module.exports = React.createClass({
                                 </a>
                             </p>
                         </div>
-                        <div className="col-md-5 browser">
-                            <div className="top" />
-                            <img className="content img-responsive" src="/img/featurette.png" />
+                        <div className="col-md-5">
+                            <div className="col-md-5 browser">
+                                <div className="top" />
+                                <img className="content img-responsive" src="/img/featurette.png" />
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="row">
+                    <video loop="true" autoPlay="true" style={{width: '100%'}}>
+                        <source src="/video/intro-video.mp4" type="video/mp4" />
+                    </video>
+                </div>
+                <div className="row">
+                    <span style={{fontSize: '80px'}}>
+                        1 tweet x 1 month x # Supporters
+                    </span>
+                </div>
+                <div className="row">
                     <div className="col-lg-4 txt-center cell">
                         <img src="/img/icons/chat.png"/>
-                        <h2>Create your Campaign</h2>
-                        <p>Create a campaign</p>
+                        <h2>Die Hard Support</h2>
+                        <p>
+                            For supporters that say, "My twitter handle is at your service".
+                            They 10x the Social Reach of your company
+                        </p>
                     </div>
                     <div className="col-lg-4 txt-center cell">
                         <img src="/img/icons/graph.png" />

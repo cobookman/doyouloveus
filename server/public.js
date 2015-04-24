@@ -56,7 +56,19 @@ exports.resolved = function(options, server, next) {
         }
     });
 
-
+    // serve up public videos
+    server.route({
+        method: 'GET',
+        path:  options.basePath + '/video/{param*}',
+        config: {
+            auth: options.auth
+        },
+        handler: {
+            directory: {
+                path: __dirname + '/../public/video'
+            }
+        }
+    });
 
     // else serve up index.html
     server.route({
