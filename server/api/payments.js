@@ -117,7 +117,8 @@ exports.addStripeCustomer = function (request) {
                 campaign: request.payload.campaign_name,
                 twitter_username: request.payload.twitter_username
             },
-            source: request.payload.token
+            source: request.payload.token,
+            plan: request.payload.plan
         };
 
         if(request.payload.coupon) {

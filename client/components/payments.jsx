@@ -73,8 +73,6 @@ module.exports = React.createClass({
         }
     },
     onStripeResponse: function(status, response) {
-        this.setState({pendingAuth: false});
-
         if(response.error) {
             this.setState({error: response.error.message, disableForm: false});
             return;
@@ -94,10 +92,10 @@ module.exports = React.createClass({
             plan: this.state.plan
         })
         .then(function() {
-            this.setState({error: false, addedCustomer: true, disableForm: false });
+            this.setState({error: false, addedCustomer: true, disableForm: false, pendingAuth: false });
         }.bind(this))
         .fail(function(err) {
-            this.setState({error: err, disableForm: false});
+            this.setState({error: err, disableForm: false, pendingAuth: false});
         }.bind(this));
     },
     handleChange: function(field, e) {
@@ -253,7 +251,7 @@ module.exports = React.createClass({
 
                     <div className="form-group">
                         <div className="col-sm-offset-2 col-sm-10">
-                            <button type="submit" className="btn btn-primary" style={{disabled: this.state.pendingAuth}}>Submit Payment</button>
+                            <button type="submit" className="btn btn-primary" disabled={this.state.pendingAuth}>Submit Payment</button>
                         </div>
                     </div>
                 </form>
